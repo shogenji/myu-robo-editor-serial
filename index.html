@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="css/style.css" media="screen">
+  <link rel="preconnect" href="https://fonts.googleapis.com"> 
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+  <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+
+  <title>MYUロボ エディタ</title>
+
+</head>
+<body>
+
+  <div id="menuArea">
+    <h1 style="float: left;">MYUロボ エディタ</h1>
+    <p>
+      <span id="warning"></span><br>
+      <span id="version" class="ver">ver. 20210803</span>
+      <input type="button" id="btnTest" value="テスト">
+    </p>
+  </div>
+
+  <div id="mainArea">
+    <div id="commandArea">
+      <div id="commandAreaTitle">命令の言葉</div>
+      <div id="commandList">
+        <select id="selectCommand" name="selectCommand" size="100">
+        </select>
+      </div>
+      <div id="commandDescription">命令の説明が表示されます。</div>
+    </div>
+
+    <!--div id="editArea" contenteditable="true">
+    </div-->
+    <div id="editArea">
+    <div id="editAreaTitle">プログラム</div>
+    <textarea id="programTextArea" rows="4" cols="40">電子音, 3, 39
+電子音, 3, 41
+電子音, 10, 39
+電子音, 3, 39
+電子音, 3, 41
+電子音, 6, 39
+停止, 2
+電子音, 2, 78
+電子音, 3, 39
+電子音, 3, 41
+電子音, 6, 46
+電子音, 2, 52
+電子音, 2, 59
+電子音, 8, 52
+停止, 2
+電子音, 4, 62
+電子音, 2, 52
+電子音, 10, 46
+電子音, 4, 46
+電子音, 2, 39
+電子音, 10, 34
+電子音, 4, 39
+電子音, 2, 34
+電子音, 16, 31</textarea>
+    </div>
+
+    <div id="controllerArea">
+      <div id="controllerAreaTitle"></div>
+      <div id="controller">
+        <input type="button" id="btnConnect" onClick="connect()" value="接続"><br>
+        <span id="deviceStatus">接続されていません。</span><br>
+        <br>
+        <input type="button" id="btnDownload" value="ダウンロード"><br>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/command.js"></script>
+  <script src="./js/myu-robo-common.js"></script>
+  <script type="text/javascript" language="javascript">
+
+
+
+    const objSelectCommand = document.getElementById('selectCommand');
+    const objCommandDescription = document.getElementById('commandDescription');
+    const objEditArea = document.getElementById('editArea');
+    const objProgramTA = document.getElementById('programTextArea');
+    const objBtnTest = document.getElementById('btnTest');
+
+    objSelectCommand.addEventListener('change', setDescription, false);
+    objSelectCommand.addEventListener('dblclick', addCommand, false);
+    objBtnTest.addEventListener('click', test, false);
+
+    setVersion();
+    setSelectBox();
+
+
+    function startup() {
+
+      if (!("hid" in navigator)) {
+        document.getElementById("warning").innerText = "WebHIDに未対応です。";
+      }
+
+      const btnConnect = document.getElementById('btnConnect');
+      btnConnect.addEventListener('mouseup', connect, false);
+      btnConnect.addEventListener('touchend', connect, false);
+
+      const btnDownload = document.getElementById('btnDownload');
+      btnDownload.addEventListener('mouseup', download, false);
+      btnDownload.addEventListener('touchend', download, false);
+    }
+
+    document.addEventListener("DOMContentLoaded", startup);
+
+    async function download() {
+      if (!device) return;
+      
+      clearInterval(timer);
+      let commandArray = parseCommand(objProgramTA);
+
+      const waitFor = duration => new Promise(r => setTimeout(r, duration));
+        
+      console.log(device.productName);
+      console.log(device.collections);
+    
+      const reportId = 0x00;
+      const dataS = Uint8Array.from([  1,  16, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 0, 0, 0]);
+      const dataE = Uint8Array.from([  1,  19, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 0, 0, 0]);
+
+      await device.sendReport(reportId, new Uint8Array(dataS));
+
+
+      for (let j = 0; j < commandArray.length; j++) {
+        let command = commandArray[j].split(',');
+        let data = new Uint8Array(64);
+        for (let i = 0; i < 64; i++) {
+          data[i] = 255;
+        }
+        data[1] = 16;
+        
+        for (let i = 0; i < commandData.length; i++) {
+          if (commandData[i][0] == command[0]) {
+            data[0] = commandData[i][2] + 1;
+            switch (commandData[i][2]) {
+              case 3:
+                data[4] = parseInt(command[2], 10);
+              case 2:
+                data[3] = parseInt(command[1], 10);
+              case 1:
+                data[2] = commandData[i][1];
+            }
+            break;
+          } else if (i == commandData.length - 1) {
+            console.log(i, 'Command not found!');
+          }
+        }
+
+        // console.log(data);
+        await device.sendReport(reportId, new Uint8Array(data));
+      }
+
+      await device.sendReport(reportId, new Uint8Array(dataE));
+      timer = setInterval(checkDevice, 3000);
+    }
+
+    function setDescription(e) {
+      // console.log(commandData[e.target.value][1]);
+      objCommandDescription.innerText = commandData[e.target.value][3];
+    }
+
+    function addCommand(e) {
+      let commands = objProgramTA.value;
+      let pos      = objProgramTA.selectionStart;
+      let len      = commands.length;
+      let before   = commands.substr(0, pos);
+      let after    = commands.substr(pos, len);
+      let word     = commandData[e.target.value][0];
+      for (let i = 1; i < commandData[e.target.value][2]; i++) {
+        word = word + ', 10';
+      }
+      // word = word + '\n';
+      
+      // objProgramTA.focus();
+      objProgramTA.value = before + word + after;
+    }
+
+    function parseCommand(element) {
+      let commands = element.value;
+      commands     = commands.replace(/ /g, "");
+      commands     = commands.replace(/　/g, "");
+      commands     = commands.replace(/，/g, ",");
+      commands     = commands.replace(/[０-９]/g, function(s) {
+        return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+      });
+      commands     = commands.replace(/\n\n+/g, "\n");
+      commands     = commands.replace(/\n$/g, "");
+      commands     = commands.replace(/^\n/g, "");
+      let commandArray = commands.split('\n');
+      console.log(commandArray);
+    
+      return commandArray;
+    }
+
+    function test(e) {
+      console.log(device);
+
+      let commandArray = parseCommand(objProgramTA);
+
+      for (let j = 0; j < commandArray.length; j++) {
+        let command = commandArray[j].split(',');
+        
+        for (let i = 0; i < commandData.length; i++) {
+          if (commandData[i][0] == command[0]) {
+            switch (commandData[i][2]) {
+              case 1:
+                console.log(command[0], commandData[i][2] + ':', commandData[i][1]);
+                break;
+              case 2:
+                console.log(command[0], commandData[i][1], commandData[i][2] + ':', commandData[i][1], parseInt(command[1], 10));
+                break;
+              case 3:
+                console.log(command[0], commandData[i][2] + ':', commandData[i][1], parseInt(command[1], 10), parseInt(command[2], 10));
+                break;
+            }
+            break;
+          } else if (i == commandData.length - 1) {
+            console.log(i, 'Command not found!');
+          }
+        }
+      }
+    }
+
+
+    function setVersion() {
+      var modified = new Date(document.lastModified);
+      var year  = modified.getFullYear();
+      var month = ('0' + (modified.getMonth() + 1)).slice(-2);
+      var date  = ('0' + modified.getDate()).slice(-2);
+
+      document.getElementById("version").innerHTML = 'ver. ' + year + month + date;
+    }
+
+    function setSelectBox() {
+      // let objOption = document.createElement("option");
+      for (let i = 0; i < commandData.length; i++) {
+        let objOption = document.createElement('option');
+        objOption.setAttribute('value', i);
+        objOption.text = commandData[i][0];
+        objOption.value = i;
+        objSelectCommand.appendChild(objOption);
+      }
+    }
+
+
+  </script>
+
+  </body>
+</html>
