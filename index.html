@@ -159,6 +159,7 @@
 
         // console.log(data);
         await device.sendReport(reportId, new Uint8Array(data));
+        waitFor(100);
       }
 
       await device.sendReport(reportId, new Uint8Array(dataE));

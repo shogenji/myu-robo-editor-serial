@@ -23,7 +23,7 @@ async function connect() {
         }
         // Wait for the HID connection to open.
 	    await device.open();
-        timer = setInterval(checkDevice, 3000);
+        // timer = setInterval(checkDevice, 3000);
         document.getElementById("deviceStatus").innerText = device.productName + "に接続しました。";
     } catch (error) {
         console.error(error.name, error.message);
@@ -54,6 +54,9 @@ function handleConnectedDevice(e) {
 
 function handleDisconnectedDevice(e) {
     console.log("Device disconnected: " + e.device.productName);
+
+    device = undefined;
+    document.getElementById("deviceStatus").innerText = "接続されていません。";
 }
 
 function handleInputReport(e) {
