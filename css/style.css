@@ -171,3 +171,83 @@ body {
   box-sizing: border-box;
   border-radius: 5px;
 }
+
+
+
+a.button {
+  margin: 0;
+  padding: 10px;
+  display: block;
+  color: #fff !important;
+  background: #09D;
+
+  font-weight: bold;
+  font-size:16px;
+  text-align: left;
+  text-decoration: none;
+
+  border: 2px solid #099;
+  border-radius: 10px;
+}
+
+a.button:before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin: -3px 5px 0 0;
+  background: url("画像URL") no-repeat;
+  background-size: contain;
+  vertical-align: middle;
+}
+
+a.button:hover {
+  opacity: 0.7;
+  transition: 0.3s ease-out;
+}
+
+
+
+input[type="file"] {
+  display: none;
+}
+
+label#lblLoadProgram {
+  margin: 0;
+  padding: 10px;
+  display: block;
+  color: #fff !important;
+  background: #09D;
+
+  font-weight: bold;
+  font-size:16px;
+  text-align: left;
+  text-decoration: none;
+
+  border: 2px solid #099;
+  border-radius: 10px;
+}
+
+label#lblLoadProgram:hover {
+    opacity: 0.7;
+    transition: 0.3s ease-out;
+  }
+
+label#lblLoadProgram:after {
+    content: "選択されていません";
+    color: #333;
+    font-size: 14px;
+    height: 20px;
+    line-height: 20px;
+    position: absolute;
+    right: -140px;
+    top: calc(50% - 10px);
+  }
+
+label#lblLoadProgram:changed:after {
+    content: "";
+}
+
+#btnLoadProgram label.filename {
+  font-size: 12px;
+}

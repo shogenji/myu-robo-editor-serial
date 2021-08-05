@@ -18,9 +18,7 @@
   <div id="menuArea">
     <h1 style="float: left;">MYUロボ エディタ</h1>
     <p>
-      <span id="warning"></span><br>
-      <span id="version" class="ver">ver. 20210803</span>
-      <input type="button" id="btnTest" value="テスト">
+      <span id="version" class="version">ver. 20210803</span>
     </p>
   </div>
 
@@ -67,10 +65,14 @@
     <div id="controllerArea">
       <div id="controllerAreaTitle"></div>
       <div id="controller">
-        <input type="button" id="btnConnect" onClick="connect()" value="接続"><br>
+        <a id="btnConnect" class="button">接続</a>
         <span id="deviceStatus">接続されていません。</span><br>
         <br>
-        <input type="button" id="btnDownload" value="ダウンロード"><br>
+        <a id="btnDownload" class="button">転送</a><br>
+        <div class="loadProgram">
+          <input type="file" name="loadProgram" accept=".txt" id="btnLoadProgram">
+          <label for="btnLoadProgram" id="lblLoadProgram">ファイルを選択</label>
+        </div>
       </div>
     </div>
   </div>
@@ -85,11 +87,11 @@
     const objCommandDescription = document.getElementById('commandDescription');
     const objEditArea = document.getElementById('editArea');
     const objProgramTA = document.getElementById('programTextArea');
-    const objBtnTest = document.getElementById('btnTest');
+    const objVersion = document.getElementById("version");
 
     objSelectCommand.addEventListener('change', setDescription, false);
     objSelectCommand.addEventListener('dblclick', addCommand, false);
-    objBtnTest.addEventListener('click', test, false);
+    objVersion.addEventListener('click', test, false);
 
     setVersion();
     setSelectBox();
@@ -98,7 +100,7 @@
     function startup() {
 
       if (!("hid" in navigator)) {
-        document.getElementById("warning").innerText = "WebHIDに未対応です。";
+        document.getElementById("deviceStatus").innerText = "WebHIDに未対応です。";
       }
 
       const btnConnect = document.getElementById('btnConnect');
@@ -201,33 +203,16 @@
       return commandArray;
     }
 
+    function saveProgram() {
+      const a = document.createElement('a');
+      a.href = 'data:text/plain,' + encodeURIComponent(objProgramTA.value);
+      a.download = 'program.txt';
+
+      a.click();
+    }
+
     function test(e) {
-      console.log(device);
-
-      let commandArray = parseCommand(objProgramTA);
-
-      for (let j = 0; j < commandArray.length; j++) {
-        let command = commandArray[j].split(',');
-        
-        for (let i = 0; i < commandData.length; i++) {
-          if (commandData[i][0] == command[0]) {
-            switch (commandData[i][2]) {
-              case 1:
-                console.log(command[0], commandData[i][2] + ':', commandData[i][1]);
-                break;
-              case 2:
-                console.log(command[0], commandData[i][1], commandData[i][2] + ':', commandData[i][1], parseInt(command[1], 10));
-                break;
-              case 3:
-                console.log(command[0], commandData[i][2] + ':', commandData[i][1], parseInt(command[1], 10), parseInt(command[2], 10));
-                break;
-            }
-            break;
-          } else if (i == commandData.length - 1) {
-            console.log(i, 'Command not found!');
-          }
-        }
-      }
+      saveProgram();
     }
 
 
@@ -251,6 +236,38 @@
       }
     }
 
+    // formInput.onchange = function () {
+    //   const file = this.files[0].name;
+    //   const label = this.nextElementSibling;
+    //   if (!label.classList.contains("changed")) {
+    //     const span = document.createElement("span");
+    //     span.className = "filename";
+    //     this.parentNode.appendChild(span);
+    //     label.classList.add("changed");
+    //   }
+    //   label.nextElementSibling.innerHTML = file;
+    //   reader.readAsText(file); // 読み込み開始
+    // };
+
+    const objLoadProgram = document.getElementById('btnLoadProgram');
+    let reader = new FileReader();
+
+    objLoadProgram.addEventListener('click', clearFilePath);
+    objLoadProgram.addEventListener('change', loadProgram);
+
+    // 保持しているファイル名を消す
+    function clearFilePath(e) {
+        this.value = null;
+    }
+
+    function loadProgram(e) {
+      for (file of objLoadProgram.files){
+        reader.readAsText(file, 'UTF-8');
+        reader.onload = ()=> {
+          objProgramTA.value = reader.result;
+        };
+      }
+    }
 
   </script>
 
