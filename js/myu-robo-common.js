@@ -2,6 +2,8 @@ var device;
 var timer = NaN;
   
 async function connect() {
+    console.log(event.type);
+
     if (device) {
         return;
     }
