@@ -115,6 +115,8 @@
     document.addEventListener("DOMContentLoaded", startup);
 
     async function download() {
+      console.log(event.type);
+
       if (!device) return;
       
       clearInterval(timer);
