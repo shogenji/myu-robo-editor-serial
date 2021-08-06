@@ -4,12 +4,10 @@ const objCommandDescription = document.getElementById('commandDescription');
 const objEditArea = document.getElementById('editArea');
 const objProgramTA = document.getElementById('programTextArea');
 const objVersion = document.getElementById("version");
-
-objSelectCommand.addEventListener('change', setDescription, false);
-objSelectCommand.addEventListener('dblclick', addCommand, false);
-
-setVersion();
-setSelectBox();
+const objConnect = document.getElementById('btnConnect');
+const objDownload = document.getElementById('btnDownload');
+const objSaveProgram = document.getElementById('btnSaveProgram');
+const objLoadProgram = document.getElementById('btnLoadProgram');
 
 
 function startup() {
@@ -18,18 +16,23 @@ function startup() {
     document.getElementById("deviceStatus").innerText = "WebHIDに未対応です。";
     }
 
-    const btnConnect = document.getElementById('btnConnect');
-    btnConnect.addEventListener('mouseup', connect, false);
+    objConnect.addEventListener('mouseup', connect, false);
     // btnConnect.addEventListener('touchend', connect, false);
 
-    const btnDownload = document.getElementById('btnDownload');
-    btnDownload.addEventListener('mouseup', download, false);
+    objDownload.addEventListener('mouseup', download, false);
     // btnDownload.addEventListener('touchend', download, false);
 
-    
-// const btnConnect = document.getElementById('btnConnect');
-// btnConnect.addEventListener('mouseup', connect, false);
-// btnConnect.addEventListener('touchend', connect, false);
+    objSaveProgram.addEventListener('mouseup', saveProgram, false);
+    objLoadProgram.addEventListener('click', clearFilePath);
+    objLoadProgram.addEventListener('change', loadProgram);
+
+    objSelectCommand.addEventListener('change', setDescription, false);
+    objSelectCommand.addEventListener('dblclick', addCommand, false);
+
+    setVersion();
+    setSelectBox();
+
+
 
 // const btnForward = document.getElementById('btnForward');
 // const btnBackward = document.getElementById('btnBackward');
@@ -152,7 +155,7 @@ function parseCommand(element) {
 function saveProgram() {
     const a = document.createElement('a');
     a.href = 'data:text/plain,' + encodeURIComponent(objProgramTA.value);
-    a.download = 'program.txt';
+    a.download = document.getElementById('inputProgramName').value;
 
     a.click();
 }
@@ -177,11 +180,7 @@ function setSelectBox() {
     }
 }
 
-const objLoadProgram = document.getElementById('btnLoadProgram');
 let reader = new FileReader();
-
-objLoadProgram.addEventListener('click', clearFilePath);
-objLoadProgram.addEventListener('change', loadProgram);
 
 // 保持しているファイル名を消す
 function clearFilePath(e) {
