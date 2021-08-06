@@ -192,7 +192,7 @@ span#version {
   color: #333333;
   font-size: 18px;
   font-family: 'M PLUS Rounded 1c', sans-serif;
-
+  line-height: 100%;
   float: left;
 }
 
