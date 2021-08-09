@@ -13,7 +13,7 @@ const objLoadProgram = document.getElementById('btnLoadProgram');
 function startup() {
 
     if (!("hid" in navigator)) {
-    document.getElementById("deviceStatus").innerText = "WebHIDに未対応です。";
+        document.getElementById("deviceStatus").innerText = "WebHIDに未対応です。";
     }
 
     objConnect.addEventListener('mouseup', connect, false);
@@ -32,7 +32,8 @@ function startup() {
     setVersion();
     setSelectBox();
 
-
+    makeCommandDictionary();
+    // console.log(commandDictionary);
 
 // const btnForward = document.getElementById('btnForward');
 // const btnBackward = document.getElementById('btnBackward');
@@ -65,8 +66,8 @@ document.addEventListener("DOMContentLoaded", startup);
 async function download() {
     if (!device) return;
     
-    clearInterval(timer);
     let commandArray = parseCommand(objProgramTA);
+    let sendcode = compileCommand(commandArray);
 
     const waitFor = duration => new Promise(r => setTimeout(r, duration));
     
@@ -74,44 +75,44 @@ async function download() {
     console.log(device.collections);
 
     const reportId = 0x00;
-    const dataS = Uint8Array.from([  1,  16, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 0, 0, 0]);
-    const dataE = Uint8Array.from([  1,  19, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 0, 0, 0]);
-
+    const dataFF = Array(62).fill(255);
+    const dataS = Uint8Array.from([  1,  16, ...dataFF]);
+    const dataE = Uint8Array.from([  1,  19, ...dataFF]);
+    // const dataS = Uint8Array.from([  1,  16, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 0, 0, 0]);
+    // const dataE = Uint8Array.from([  1,  19, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 0, 0, 0]);
+    
     await device.sendReport(reportId, new Uint8Array(dataS));
 
-
     for (let j = 0; j < commandArray.length; j++) {
-    let command = commandArray[j].split(',');
-    let data = new Uint8Array(64);
-    for (let i = 0; i < 64; i++) {
-        data[i] = 255;
-    }
-    data[1] = 16;
-    
-    for (let i = 0; i < commandData.length; i++) {
-        if (commandData[i][0] == command[0]) {
-        data[0] = commandData[i][2] + 1;
-        switch (commandData[i][2]) {
-            case 3:
-            data[4] = parseInt(command[2], 10);
-            case 2:
-            data[3] = parseInt(command[1], 10);
-            case 1:
-            data[2] = commandData[i][1];
-        }
-        break;
-        } else if (i == commandData.length - 1) {
-        console.log(i, 'Command not found!');
-        }
-    }
+        if (commandArray[j].length == 0) continue;
 
-    // console.log(data);
-    await device.sendReport(reportId, new Uint8Array(data));
-    // waitFor(100);
+        let command = commandArray[j].split(',');
+        let data = Array(64).fill(255, 0);
+        data[1] = 16;
+        
+        for (let i = 0; i < commandData.length; i++) {
+            if (commandData[i][0] == command[0]) {
+                data[0] = commandData[i][2] + 1;
+                switch (commandData[i][2]) {
+                    case 3:
+                    data[4] = parseInt(command[2], 10);
+                    case 2:
+                    data[3] = parseInt(command[1], 10);
+                    case 1:
+                    data[2] = commandData[i][1];
+                }
+                break;
+            } else if (i == commandData.length - 1) {
+                console.log(i, 'Command not found!');
+            }
+        }
+
+        // console.log(data);
+        await device.sendReport(reportId, new Uint8Array(data));
+        // waitFor(100);
     }
 
     await device.sendReport(reportId, new Uint8Array(dataE));
-    // timer = setInterval(checkDevice, 3000);
 }
 
 function setDescription(e) {
@@ -127,7 +128,7 @@ function addCommand(e) {
     let after    = commands.substr(pos, len);
     let word     = commandData[e.target.value][0];
     for (let i = 1; i < commandData[e.target.value][2]; i++) {
-    word = word + ', 10';
+        word = word + ', 10';
     }
     // word = word + '\n';
     
@@ -135,21 +136,53 @@ function addCommand(e) {
     objProgramTA.value = before + word + after;
 }
 
+let commandDictionary = {};
+function makeCommandDictionary() {
+    for (let i = 0; i < commandData.length; i++) {
+        commandDictionary[commandData[i][0]] = [];
+        commandDictionary[commandData[i][0]].push(i);
+        commandDictionary[commandData[i][0]].push(commandData[i][1]);
+        commandDictionary[commandData[i][0]].push(commandData[i][2]);
+    }
+}
+  
 function parseCommand(element) {
     let commands = element.value;
     commands     = commands.replace(/ /g, "");
     commands     = commands.replace(/　/g, "");
     commands     = commands.replace(/，/g, ",");
     commands     = commands.replace(/[０-９]/g, function(s) {
-    return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+        return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
     });
-    commands     = commands.replace(/\n\n+/g, "\n");
     commands     = commands.replace(/\n$/g, "");
-    commands     = commands.replace(/^\n/g, "");
+    // commands     = commands.replace(/\n\n+/g, "\n");
+    // commands     = commands.replace(/^\n/g, "");
+
     let commandArray = commands.split('\n');
     console.log(commandArray);
 
     return commandArray;
+}
+
+function compileCommand(commandArray) {
+    let sendcode = [];
+
+    for (let i = 0; i < commandArray.length; i++) {
+        if (commandArray[i].length == 0) continue;
+
+        let command = commandArray[i].split(',');
+
+        if (command[0] in commandDictionary) {
+            sendcode.push(commandDictionary[command[0]][1]);
+            for (c = 1; c < commandDictionary[command[0]][2]; c++) {
+                sendcode.push(parseInt(command[1], 10));
+            }
+        } else {
+            console.log('Line ' + String(i + 1) + ': ' + command[0] + ' not found!');
+        }
+    }
+
+    return sendcode;
 }
 
 function saveProgram() {
@@ -172,11 +205,11 @@ function setVersion() {
 function setSelectBox() {
     // let objOption = document.createElement("option");
     for (let i = 0; i < commandData.length; i++) {
-    let objOption = document.createElement('option');
-    objOption.setAttribute('value', i);
-    objOption.text = commandData[i][0];
-    objOption.value = i;
-    objSelectCommand.appendChild(objOption);
+        let objOption = document.createElement('option');
+        objOption.setAttribute('value', i);
+        objOption.text = commandData[i][0];
+        objOption.value = i;
+        objSelectCommand.appendChild(objOption);
     }
 }
 
