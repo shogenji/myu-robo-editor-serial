@@ -1,165 +1,275 @@
 /* Basic Layout */
-html,
+html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+  /* font-family: 'Kosugi Maru', sans-serif; */
+  font-family: 'M PLUS Rounded 1c', sans-serif;
 }
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 
+
 #menuArea {
-    width: 100%;
-    height: 100px;
-    margin: 0px;
-    padding: 20px;
+  width: 100%;
+  height: 80px;
+  margin: 0px;
+  padding: 20px;
+
+  background-color: #00cccc;
+
+  border: none;
+  border-top: 1px solid #f8f8f8;
+  border-bottom: 2px solid #ffff99;
+  box-sizing: border-box;
+}
+
+
+#menuArea h1 {
+  width: 80%;
+  height: 100%;
+
+  font-size: 28pt;
+  font-weight: bold;
+  color: #ff0099;
   
-    border: 1px solid #000;
-    box-sizing: border-box;
-  }
-  
-  #mainArea {
-    width: 100%;
-    height: calc(100% - 100px);
-    margin: 0px;
-    padding: 10px;
-  
-    border: 1px solid #000;
-    box-sizing: border-box;
-  }
-  
-  #commandArea {
-    width: 30%;
-    height: 100%;
-    margin: 0px;
-    padding: 5px;
-  
-    /* border: 1px solid #f00;
-    box-sizing: border-box; */
-  
-    float: left;
-  }
-  
-  #commandAreaTitle {
-    width: 100%;
-    height: 30px;
-    padding-left: 10px;
-    margin-bottom: 10px;
-  
-    font-size: 24px;
-  }
-  
-  #commandList {
-    width: 100%;
-    height: calc(80% - 30px - 20px);
-    padding: 0px;
-    margin-bottom: 10px;
-  
-    border: 0px solid #00f;
-    box-sizing: border-box;
-    border-radius: 5px;
-  }
-  
-  #selectCommand {
-    width: 100%;
-    height: 100%;
-    padding: 10px;
-  
-    font-size: 24px;
-    font-weight: normal;
-  
-    border: 2px solid #00f;
-    box-sizing: border-box;
-    border-radius: 5px;
-  }
-  
-  #commandDescription {
-    width: 100%;
-    height: 20%;
-    padding: 10px;
-  
-    font-size: 18px;
-    font-weight: normal;
-    line-height: 140%;
-    text-align: justify;
-    overflow: scroll;
-  
-    border: 2px solid #00f;
-    box-sizing: border-box;
-    border-radius: 5px;
-  }
-  
-  #editArea {
-    width: 40%;
-    height: 100%;
-    padding: 5px;
-  
-    /* border: 1px solid #f00;
-    box-sizing: border-box; */
-  
-    float: left;
-  }
-  
-  #editAreaTitle {
-    width: 100%;
-    height: 30px;
-    padding-left: 10px;
-    margin-bottom: 10px;
-  
-    font-size: 24px;
-  }
-  
-  #programTextArea {
-    width: 100%;
-    height: calc(100% - 30px - 10px);
-    margin: 0px;
-    padding: 10px;
-  
-    font-size: 24px;
-    line-height: 140%;
-    overflow: scroll;
-  
-    border: 2px solid #0f0;
-    box-sizing: border-box;
-    border-radius: 5px;
-  }
-  
-  #controllerArea {
-    width: 27%;
-    height: 100%;
-    margin: 0px;
-    padding: 5px;
-  
-    /* border: 1px solid #f00;
-    box-sizing: border-box; */
-  
-    float: left;
-  }
-  
-  #controllerAreaTitle {
-    width: 100%;
-    height: 30px;
-    padding-left: 10px;
-    margin-bottom: 10px;
-  
-    font-size: 24px;
-  }
-  
-  #controller {
-    width: 100%;
-    height: calc(100% - 30px - 10px);
-    margin: 0px;
-    padding: 10px;
-  
-    font-size: 18px;
-    line-height: 140%;
-  
-    border: 2px solid #f0f;
-    box-sizing: border-box;
-    border-radius: 5px;
-  }
-  
+  float: left;
+
+  /* border: 1px solid #f00;
+  box-sizing: border-box; */
+
+}
+
+#menuArea h1 span.subtitle {
+  font-size: 18pt;
+  font-weight: bold;
+  color: #ff0099;
+}
+
+#menuArea p.version {
+  width: 20%;
+  height: 100%;
+
+  font-size: 14px;
+  text-align: right;
+  line-height: 140%;
+  color: #ff0099;
+
+  float: left;
+
+  /* border: 1px solid #f00;
+  box-sizing: border-box; */
+}
+
+span#version {
+  /* border: 1px solid #f00;
+  box-sizing: border-box; */
+}
+
+
+#mainArea {
+  width: 100%;
+  height: calc(100% - 100px);
+  margin: 0px;
+  padding: 10px;
+
+  background-color: #333333;
+
+  border: 0px solid #000;
+  box-sizing: border-box;
+}
+
+
+#commandArea {
+  width: 30%;
+  height: 100%;
+  margin: 0px;
+  padding: 5px;
+
+  /* border: 1px solid #f00;
+  box-sizing: border-box; */
+
+  float: left;
+}
+
+#commandAreaTitle {
+  width: 100%;
+  height: 30px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+
+  color: #f8f8f8;
+
+  font-size: 24px;
+}
+
+#commandList {
+  width: 100%;
+  height: calc(80% - 30px - 20px);
+  padding: 0px;
+  margin-bottom: 10px;
+
+  border: 0px solid #00f;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+#selectCommand {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+
+  background-color: #f8f8f8;
+
+  color: #333333;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 24px;
+  font-weight: normal;
+
+  border: 2px solid #00cccc;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+#commandDescription {
+  width: 100%;
+  height: 20%;
+  padding: 10px;
+
+  background-color: #f8f8f8;
+
+  color: #333333;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 140%;
+  text-align: justify;
+  overflow: scroll;
+
+  border: 2px solid #00cccc;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+
+#editArea {
+  width: 40%;
+  height: 100%;
+  padding: 5px;
+
+  /* border: 1px solid #f00;
+  box-sizing: border-box; */
+
+  float: left;
+}
+
+#editAreaTitle {
+  /* width: 100%; */
+  height: 30px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+
+  color: #f8f8f8;
+
+  font-size: 24px;
+
+  float: left;
+}
+
+#editAreaProgramName {
+  /* width: 100%; */
+  height: 30px;
+  margin-bottom: 10px;
+
+  float: left;
+}
+
+#editAreaProgramName input {
+  /* width: 100%; */
+  height: 30px;
+  margin-top: -3px;
+  padding-left: 10px;
+
+  background-color: #f8f8f8;
+
+  color: #333333;
+  font-size: 18px;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  line-height: 100%;
+
+  border: 2px solid #00cccc;
+  box-sizing: border-box;
+  border-radius: 5px;
+
+  float: left;
+}
+
+#programTextArea {
+  width: 100%;
+  height: calc(100% - 30px - 10px);
+  resize: none;
+  margin: 0px;
+  padding: 10px;
+
+  background-color: #f8f8f8;
+
+  color: #333333;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 24px;
+  line-height: 140%;
+  overflow: scroll;
+
+  border: 2px solid #00cccc;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+#controllerArea {
+  width: 30%;
+  height: 100%;
+  margin: 0px;
+  padding: 5px;
+
+  /* border: 1px solid #f00;
+  box-sizing: border-box; */
+
+  float: left;
+}
+
+#controllerAreaTitle {
+  width: 100%;
+  height: 30px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+
+  font-size: 24px;
+}
+
+#controller {
+  width: 100%;
+  height: calc(100% - 30px - 10px);
+  margin: 0px;
+  padding: 10px;
+
+  background-color: #f8f8f8;
+
+  color: #333333;
+  font-size: 18px;
+  line-height: 140%;
+
+  border: 2px solid #00cccc;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
