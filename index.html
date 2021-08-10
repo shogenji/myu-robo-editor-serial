@@ -5,6 +5,7 @@
   <!-- <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0" /> -->
   <meta charset="UTF-8">
   <link rel="stylesheet" href="css/html5reset-1.6.1.css">
+  <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com"> 
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,9 +17,10 @@
 <body>
 
   <div id="menuArea">
-    <h1>MYUロボ エディタ</h1>
+    <h1>MYUロボ エディタ<span class="subtitle"> with WebHID</span></h1>
     <p class="version">
-      <span id="version">ver. 20210803</span>
+      <span id="version">ver. 20210803</span><br>
+      <span id="deviceStatus">接続されていません。</span>
     </p>
   </div>
 
@@ -43,15 +45,14 @@
     <div id="controllerArea">
       <div id="controllerAreaTitle"></div>
       <div id="controller">
-        <a id="btnConnect" class="button">MYUロボと接続</a>
-        <span id="deviceStatus">接続されていません。</span><br>
+        <a id="btnConnect" class="button">接続</a>
+        <a id="btnDownload" class="button">転送</a><br>
         <br>
-        <a id="btnDownload" class="button">プログラムの転送</a><br>
         <br>
-        <a id="btnSaveProgram" class="button">プログラムの保存</a><br>
+        <a id="btnSaveProgram" class="button">保存</a>
         <div class="loadProgram">
           <input type="file" name="loadProgram" accept=".txt" id="btnLoadProgram">
-          <label for="btnLoadProgram" id="lblLoadProgram">プログラムの読み込み</label>
+          <label for="btnLoadProgram" id="lblLoadProgram">読込</label>
         </div>
       </div>
     </div>
