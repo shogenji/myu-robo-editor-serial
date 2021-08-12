@@ -263,13 +263,13 @@ span#version {
   margin: 0px;
   padding: 10px;
 
-  background-color: #f8f8f8;
+  /* background-color: #f8f8f8; */
 
   color: #333333;
   font-size: 18px;
   line-height: 140%;
 
-  border: 2px solid #00cccc;
+  /* border: 2px solid #00cccc;
   box-sizing: border-box;
-  border-radius: 5px;
+  border-radius: 5px; */
 }
