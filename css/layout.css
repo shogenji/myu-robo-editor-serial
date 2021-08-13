@@ -261,7 +261,7 @@ span#version {
   width: 100%;
   height: calc(100% - 30px - 10px);
   margin: 0px;
-  padding: 10px;
+  padding: 0 10px;
 
   /* background-color: #f8f8f8; */
 
