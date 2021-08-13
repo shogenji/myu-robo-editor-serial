@@ -128,7 +128,11 @@ function addCommand(e) {
     let after    = commands.substr(pos, len);
     let word     = commandData[e.target.value][0];
     for (let i = 1; i < commandData[e.target.value][2]; i++) {
-        word = word + ', 10';
+        let arg = window.prompt(commandData[e.target.value][4 + (i - 1) * 3], commandData[e.target.value][4 + (i - 1) * 3 + 1]);
+        if (arg == "" || arg == null || isNaN(arg)) {
+            arg = commandData[e.target.value][4 + (i - 1) * 3 + 1];
+        }
+        word = word + ', ' + arg;
     }
     if (after[0] != '\n') {
         word = word + '\n';
