@@ -130,10 +130,16 @@ function addCommand(e) {
     for (let i = 1; i < commandData[e.target.value][2]; i++) {
         word = word + ', 10';
     }
-    // word = word + '\n';
+    if (after[0] != '\n') {
+        word = word + '\n';
+    }
     
     // objProgramTA.focus();
     objProgramTA.value = before + word + after;
+
+    objProgramTA.focus();
+    var newCaret = pos + word.length;
+    objProgramTA.setSelectionRange(newCaret, newCaret);
 }
 
 let commandDictionary = {};
