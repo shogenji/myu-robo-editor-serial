@@ -96,7 +96,7 @@ span#version {
   width: 30%;
   height: 100%;
   margin: 0px;
-  padding: 5px;
+  padding: 10px;
 
   /* border: 1px solid #f00;
   box-sizing: border-box; */
@@ -167,7 +167,7 @@ span#version {
 #editArea {
   width: 40%;
   height: 100%;
-  padding: 5px;
+  padding: 10px;
 
   /* border: 1px solid #f00;
   box-sizing: border-box; */
@@ -240,7 +240,7 @@ span#version {
   width: 30%;
   height: 100%;
   margin: 0px;
-  padding: 5px;
+  padding: 10px;
 
   /* border: 1px solid #f00;
   box-sizing: border-box; */
@@ -261,7 +261,7 @@ span#version {
   width: 100%;
   height: calc(100% - 30px - 10px);
   margin: 0px;
-  padding: 0 10px;
+  padding: 0px;
 
   /* background-color: #f8f8f8; */
 
