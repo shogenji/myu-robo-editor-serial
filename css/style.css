@@ -1,12 +1,12 @@
 
 a.button {
   margin-bottom: 20px;
-  padding: 10px;
+  padding: 5px 10px;
   display: block;
   color: #ff0099;
   background: #00cccc;
 
-  font-size: 24pt;
+  font-size: 18pt;
   font-weight: bold;
   text-align: left;
   text-decoration: none;
@@ -19,8 +19,8 @@ a.button {
 a.button:before {
   content: "";
   display: inline-block;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   margin: 0px 10px 0 0;
   vertical-align: middle;
 }
@@ -40,12 +40,12 @@ label#lblLoadProgram {
   position: relative;
 
   margin: 0;
-  padding: 10px;
+  padding: 5px 10px;
   display: block;
   color: #ff0099;
   background: #00cccc;
 
-  font-size: 24pt;
+  font-size: 18pt;
   font-weight: bold;
   text-align: left;
   text-decoration: none;
@@ -80,8 +80,8 @@ label#lblLoadProgram:after {
 label#lblLoadProgram::before {
   content: "";
   display: inline-block;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   margin-right: 10px;
   vertical-align: middle;
 }
