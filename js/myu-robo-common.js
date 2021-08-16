@@ -26,6 +26,7 @@ async function connect() {
 	    await device.open();
         document.getElementById("deviceStatus").innerText = device.productName + "に接続しました。";
         document.getElementById("btnConnect").classList.add("connected");
+        document.getElementById("btnConnect").style.opacity = "1.0";
         document.getElementById("btnDownload").style.opacity = "1.0";
     } catch (error) {
         console.error(error.name, error.message);
