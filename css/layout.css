@@ -84,7 +84,7 @@ span#version {
 
 #mainArea {
   width: 100%;
-  height: calc(100% - 100px);
+  height: calc(100% - 60px);
   margin: 0px;
   padding: 10px;
 
