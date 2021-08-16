@@ -1,5 +1,4 @@
 var device;
-var timer = NaN;
   
 async function connect() {
     console.log(event.type);
@@ -25,29 +24,12 @@ async function connect() {
         }
         // Wait for the HID connection to open.
 	    await device.open();
-        // timer = setInterval(checkDevice, 3000);
         document.getElementById("deviceStatus").innerText = device.productName + "に接続しました。";
+        document.getElementById("btnConnect").classList.add("connected");
+        document.getElementById("btnDownload").style.opacity = "1.0";
     } catch (error) {
         console.error(error.name, error.message);
     }
-}
-
-async function checkDevice() {
-    if (!device) return;
-
-	const reportId = 0x00;
-    const data = Uint8Array.from([  2,   5,   0, 222, 119,  74,  10, 226, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 0, 0, 0]);
-    
-    try {
-        await device.sendReport(reportId, new Uint8Array(data));
-        console.log("connected");
-    } catch (err) {
-    
-        device = undefined;
-        clearInterval(timer);
-        document.getElementById("deviceStatus").innerText = "接続されていません。";
-        console.log(err);
-    }      
 }
 
 function handleConnectedDevice(e) {
@@ -59,6 +41,8 @@ function handleDisconnectedDevice(e) {
 
     device = undefined;
     document.getElementById("deviceStatus").innerText = "接続されていません。";
+    document.getElementById("btnConnect").classList.remove("connected");
+    document.getElementById("btnDownload").style.opacity = "0.4";
 }
 
 function handleInputReport(e) {

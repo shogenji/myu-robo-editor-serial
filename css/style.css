@@ -17,7 +17,7 @@ a.button {
   border-radius: 10px;
 }
 
-a.button:before {
+a.button::before {
   content: "";
   display: inline-block;
   width: 40px;
@@ -62,7 +62,7 @@ label#lblLoadProgram:hover {
   transition: 0.3s ease-out;
 }
 
-label#lblLoadProgram:after {
+label#lblLoadProgram::after {
   position: absolute;
   top: 60px;
   right: 0px;
@@ -88,7 +88,7 @@ label#lblLoadProgram::before {
   vertical-align: middle;
 }
 
-label#lblLoadProgram:changed:after {
+label#lblLoadProgram::changed::after {
   content: "";
 }
 
@@ -104,8 +104,13 @@ label#lblLoadProgram:changed:after {
   float: left;
 }
 
-a#btnConnect:before {
+a#btnConnect::before {
   background: url("../img/button/connect001.png") no-repeat;
+  background-size: contain;
+}
+
+a#btnConnect.connected::before {
+  background: url("../img/button/connect002.png") no-repeat;
   background-size: contain;
 }
 
@@ -115,7 +120,7 @@ a#btnConnect:before {
   float: left;
 }
 
-a#btnDownload:before {
+a#btnDownload::before {
   background: url("../img/button/download.png") no-repeat;
   background-size: contain;
 }
@@ -127,7 +132,7 @@ a#btnDownload:before {
   float: left;
 }
 
-a#btnSaveProgram:before {
+a#btnSaveProgram::before {
   background: url("../img/button/save.png") no-repeat;
   background-size: contain;
 }
@@ -138,7 +143,7 @@ a#btnSaveProgram:before {
   float: left;
 }
 
-label#lblLoadProgram:before {
+label#lblLoadProgram::before {
   background: url("../img/button/load.png") no-repeat;
   background-size: contain;
 }

@@ -14,6 +14,7 @@ function startup() {
 
     if (!("hid" in navigator)) {
         document.getElementById("deviceStatus").innerText = "WebHIDに未対応です。";
+        document.getElementById("btnConnect").style.opacity = "0.4";
     }
 
     objConnect.addEventListener('mouseup', connect, false);
@@ -21,7 +22,8 @@ function startup() {
 
     objDownload.addEventListener('mouseup', download, false);
     // btnDownload.addEventListener('touchend', download, false);
-
+    objDownload.style.opacity = "0.4";
+    
     objSaveProgram.addEventListener('mouseup', saveProgram, false);
     objLoadProgram.addEventListener('click', clearFilePath);
     objLoadProgram.addEventListener('change', loadProgram);
