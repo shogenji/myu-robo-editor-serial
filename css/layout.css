@@ -52,12 +52,16 @@ body {
 
   /* border: 1px solid #f00;
   box-sizing: border-box; */
-
 }
 
 #menuArea h1 span.subtitle {
   font-size: 18pt;
   font-weight: bold;
+  color: #ff0099;
+}
+
+#menuArea a {
+  text-decoration: none;
   color: #ff0099;
 }
 
