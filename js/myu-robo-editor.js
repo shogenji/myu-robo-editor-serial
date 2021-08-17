@@ -11,7 +11,6 @@ const objLoadProgram = document.getElementById('btnLoadProgram');
 
 
 function startup() {
-
     if (!("hid" in navigator)) {
         document.getElementById("deviceStatus").innerText = "WebHIDに未対応です。";
         document.getElementById("btnConnect").style.opacity = "0.4";
@@ -77,11 +76,8 @@ async function download() {
     console.log(device.collections);
 
     const reportId = 0x00;
-    const dataFF = Array(62).fill(255);
-    const dataS = Uint8Array.from([  1,  16, ...dataFF]);
-    const dataE = Uint8Array.from([  1,  19, ...dataFF]);
-    // const dataS = Uint8Array.from([  1,  16, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 0, 0, 0]);
-    // const dataE = Uint8Array.from([  1,  19, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 0, 0, 0]);
+    const dataS = Uint8Array.from([  1,  16, ...Array(62).fill(255)]);
+    const dataE = Uint8Array.from([  1,  19, ...Array(62).fill(255)]);
     
     await device.sendReport(reportId, new Uint8Array(dataS));
 
