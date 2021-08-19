@@ -1,0 +1,148 @@
+/* Dialog CSS */
+
+#dialog {
+  display: none;
+}
+
+#dialogBackground {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: #333333;
+
+  opacity: 0.5;
+}
+
+#dialogMain {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+  width: 400px;
+  height: 250px;
+  margin-left: -200px;
+  margin-top: -200px;
+  background-color: #f8f8f8;
+  text-align: center;
+
+  color: #333333;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 18px;
+  font-weight: normal;
+    
+  border: 2px solid #00cccc;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+#dialogContent {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  margin: 0px;
+  padding: 0px;
+}
+
+#dialogMsg {
+}
+
+#arg1 {
+  width: 100%;
+  height: 100px;
+  margin: 0px;
+  padding: 10px 20px;
+
+  text-align: left;
+
+  border: 1px solid #ff0000;
+  box-sizing: border-box;
+}
+
+#arg2 {
+  width: 100%;
+  height: 100px;
+  margin: 0px;
+  padding: 10px 20px;
+  
+  text-align: left;
+
+  display: none;
+
+  border: 1px solid #ff0000;
+  box-sizing: border-box;
+}
+
+#dialogButton {
+  position: absolute;
+
+  bottom: 0px;
+
+  width: 100%;
+  height: 50px;
+
+  margin: auto;
+  display: block;
+
+  text-align: center;
+
+  border: 1px solid #ff0000;
+  box-sizing: border-box;
+}
+
+.argName {
+  width: 14em;
+  margin: 0px;
+  padding: 0px;
+}
+
+.argDescription {
+  color: #888888;
+}
+
+input.argInput {
+  margin: 10px 10px;
+
+  padding: 3px 10px;
+  display: inline-block;
+
+  background: #ffffff;
+
+  color: #333333;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 12pt;
+  font-weight: normal;
+  text-align: right;
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: middle;
+
+  border: 1px solid #333333;
+  border-radius: 5px;
+}
+
+input.button {
+  width: 100px;
+  height: 30px;
+
+  margin: 10px;
+  padding: 3px 10px;
+
+  display: inline-block;
+
+  background: #ffffff;
+
+  color: #333333;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 12pt;
+  font-weight: normal;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  
+  border: 1px solid #333333;
+  border-radius: 5px;
+}

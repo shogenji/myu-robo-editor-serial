@@ -126,9 +126,9 @@ function addCommand(e) {
     let after    = commands.substr(pos, len);
     let word     = commandData[e.target.value][0];
     for (let i = 1; i < commandData[e.target.value][2]; i++) {
-        let arg = window.prompt(commandData[e.target.value][4 + (i - 1) * 3], commandData[e.target.value][4 + (i - 1) * 3 + 1]);
+        let arg = window.prompt(commandData[e.target.value][4 + (i - 1) * 4], commandData[e.target.value][4 + (i - 1) * 4 + 2]);
         if (arg == "" || arg == null || isNaN(arg)) {
-            arg = commandData[e.target.value][4 + (i - 1) * 3 + 1];
+            arg = commandData[e.target.value][4 + (i - 1) * 4 + 2];
         }
         word = word + ', ' + arg;
     }
