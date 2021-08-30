@@ -15,6 +15,7 @@ a.button {
 
   border: 2px solid #00cccc;
   border-radius: 10px;
+  box-shadow: 0px 1px 3px #333333;
 }
 
 a.button::before {
@@ -55,6 +56,7 @@ label#lblLoadProgram {
 
   border: 2px solid #00cccc;
   border-radius: 10px;
+  box-shadow: 0px 1px 3px #333333;
 }
 
 label#lblLoadProgram:hover {

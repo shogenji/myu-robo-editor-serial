@@ -28,13 +28,13 @@ function startup() {
     objLoadProgram.addEventListener('change', loadProgram);
 
     objSelectCommand.addEventListener('change', setDescription, false);
-    objSelectCommand.addEventListener('dblclick', addCommand, false);
+    // objSelectCommand.addEventListener('dblclick', addCommand, false);
 
     setVersion();
     setSelectBox();
 
     makeCommandDictionary();
-    // console.log(commandDictionary);
+    console.log(commandDictionary);
 
 // const btnForward = document.getElementById('btnForward');
 // const btnBackward = document.getElementById('btnBackward');
@@ -115,33 +115,7 @@ async function download() {
 
 function setDescription(e) {
     // console.log(commandData[e.target.value][1]);
-    objCommandDescription.innerText = commandData[e.target.value][3];
-}
-
-function addCommand(e) {
-    let commands = objProgramTA.value;
-    let pos      = objProgramTA.selectionStart;
-    let len      = commands.length;
-    let before   = commands.substr(0, pos);
-    let after    = commands.substr(pos, len);
-    let word     = commandData[e.target.value][0];
-    for (let i = 1; i < commandData[e.target.value][2]; i++) {
-        let arg = window.prompt(commandData[e.target.value][4 + (i - 1) * 4], commandData[e.target.value][4 + (i - 1) * 4 + 2]);
-        if (arg == "" || arg == null || isNaN(arg)) {
-            arg = commandData[e.target.value][4 + (i - 1) * 4 + 2];
-        }
-        word = word + ', ' + arg;
-    }
-    if (after[0] != '\n') {
-        word = word + '\n';
-    }
-    
-    // objProgramTA.focus();
-    objProgramTA.value = before + word + after;
-
-    objProgramTA.focus();
-    var newCaret = pos + word.length;
-    objProgramTA.setSelectionRange(newCaret, newCaret);
+    objCommandDescription.innerText = commandData[e.target.selectedIndex][3];
 }
 
 let commandDictionary = {};
@@ -151,6 +125,17 @@ function makeCommandDictionary() {
         commandDictionary[commandData[i][0]].push(i);
         commandDictionary[commandData[i][0]].push(commandData[i][1]);
         commandDictionary[commandData[i][0]].push(commandData[i][2]);
+        commandDictionary[commandData[i][0]].push(commandData[i][3]);
+        if (commandData[i][2] == 1) continue;
+        commandDictionary[commandData[i][0]].push(commandData[i][4]);
+        commandDictionary[commandData[i][0]].push(commandData[i][5]);
+        commandDictionary[commandData[i][0]].push(commandData[i][6]);
+        commandDictionary[commandData[i][0]].push(commandData[i][7]);
+        if (commandData[i][2] == 2) continue;
+        commandDictionary[commandData[i][0]].push(commandData[i][8]);
+        commandDictionary[commandData[i][0]].push(commandData[i][9]);
+        commandDictionary[commandData[i][0]].push(commandData[i][10]);
+        commandDictionary[commandData[i][0]].push(commandData[i][11]);
     }
 }
   
@@ -216,7 +201,7 @@ function setSelectBox() {
         let objOption = document.createElement('option');
         objOption.setAttribute('value', i);
         objOption.text = commandData[i][0];
-        objOption.value = i;
+        objOption.value = commandData[i][0]; // = i;
         objSelectCommand.appendChild(objOption);
     }
 }
@@ -243,3 +228,114 @@ window.oncontextmenu = function(event) {
     event.stopPropagation();
     return false;
 };
+
+
+// var dialogList = document.querySelectorAll('dialog');
+// if (dialogList) {
+//   for (let i = 0; i < dialogList.length; i++) {
+//     //サポートしていない場合は、dialogPolyfillが互換実装を提供する
+//     dialogPolyfill.registerDialog(dialogList[i]);
+//   }
+// }
+
+let argValue = new Array(3);
+
+const open = document.getElementById('open');
+const close = document.getElementById('close');
+const dialog = document.getElementById('dialog');
+
+objSelectCommand.addEventListener('dblclick', function() {
+    if (setDialogBox()) {
+        dialog.showModal();
+    } else {
+        addCommandToTextArea();
+    }
+});
+
+// open.addEventListener('click', function() {
+//   setDialogBox();
+//   dialog.showModal();
+// });
+
+close.addEventListener('click', function() {
+    addCommandToTextArea();
+    dialog.close();
+});
+
+dialog.addEventListener('click', function(event) {
+    if (event.target === dialog) {
+        dialog.close('cancelled');
+    }
+});
+
+function addCommandToTextArea() {
+    argValue[1] = document.getElementById("inputArg1").value;
+    argValue[2] = document.getElementById("inputArg2").value;
+
+    let commands = objProgramTA.value;
+    let pos      = objProgramTA.selectionStart;
+    let len      = commands.length;
+    let before   = commands.substr(0, pos);
+    let after    = commands.substr(pos, len);
+    let word     = commandData[objSelectCommand.selectedIndex][0];
+
+    for (let i = 1; i < commandData[objSelectCommand.selectedIndex][2]; i++) {
+        word = word + ', ' + argValue[i];
+    }
+
+    if (after[0] != '\n') {
+        word = word + '\n';
+    }
+
+    objProgramTA.value = before + word + after;
+
+    objProgramTA.focus();
+    let newCaret = pos + word.length;
+    objProgramTA.setSelectionRange(newCaret, newCaret);
+}
+
+function setDialogBox() {
+    // commandDictionary
+    commandIndex = document.getElementById('selectCommand').selectedIndex;
+    console.log("commandIndex", commandIndex);
+    console.log(commandData[commandIndex][2]);
+    
+    switch (commandData[commandIndex][2]) {
+    case 1:
+        return false;
+    case 2:
+        document.getElementById("arg1Name").innerText = commandData[commandIndex][4];
+        document.getElementById("arg1Description").innerText = commandData[commandIndex][5];
+        if (isNaN(argValue[1])) {
+            console.log(argValue[1], commandData[commandIndex][6]);
+            document.getElementById("inputArg1").value = commandData[commandIndex][6];
+        } else {
+            document.getElementById("inputArg1").value = argValue[1];
+        }
+        arg2Value = null;
+        document.getElementById("arg2").style.display = "none";
+        break;
+    case 3:
+        document.getElementById("arg1Name").innerText = commandData[commandIndex][4];
+        document.getElementById("arg1Description").innerText = commandData[commandIndex][5];
+        if (isNaN(argValue[1])) {
+            // console.log(argValue[1], commandData[commandIndex][6]);
+            document.getElementById("inputArg1").value = commandData[commandIndex][6];
+        } else {
+            document.getElementById("inputArg1").value = argValue[1];
+        }
+        document.getElementById("arg2").style.display = "block";
+        document.getElementById("arg2Name").innerText = commandData[commandIndex][8];
+        document.getElementById("arg2Description").innerText = commandData[commandIndex][9];
+        if (isNaN(argValue[2])) {
+            // console.log(argValue[2], commandData[commandIndex][10]);
+            document.getElementById("inputArg2").value = commandData[commandIndex][10];
+        } else {
+            document.getElementById("inputArg2").value = argValue[2];
+        }
+
+        break;
+    }
+
+    return true;
+}

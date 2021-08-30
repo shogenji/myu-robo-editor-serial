@@ -1,10 +1,10 @@
 /* Dialog CSS */
 
-#dialog {
+/* #dialog {
   display: none;
-}
+} */
 
-#dialogBackground {
+/* #dialogBackground {
   position: absolute;
   left: 0px;
   top: 0px;
@@ -13,9 +13,9 @@
   background-color: #333333;
 
   opacity: 0.5;
-}
+} */
 
-#dialogMain {
+/* #dialogMain {
   position: absolute;
 
   left: 50%;
@@ -35,9 +35,9 @@
   border: 2px solid #00cccc;
   box-sizing: border-box;
   border-radius: 10px;
-}
+} */
 
-#dialogContent {
+/* #dialogContent {
   position: relative;
 
   width: 100%;
@@ -45,10 +45,10 @@
 
   margin: 0px;
   padding: 0px;
-}
+} */
 
-#dialogMsg {
-}
+/* #dialogMsg {
+} */
 
 #arg1 {
   width: 100%;
@@ -144,4 +144,72 @@ input.button {
   
   border: 1px solid #333333;
   border-radius: 5px;
+}
+
+
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+dialog {
+  padding: 0px;
+  position: relative;
+
+  background-color: #f8f8f8;
+  text-align: center;
+
+  color: #333333;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 18px;
+  font-weight: normal;
+    
+  border: 2px solid #00cccc;
+  box-sizing: border-box;
+  border-radius: 10px;
+  box-shadow: 1px 1px 2px #333333;
+}
+        
+dialog[open]{
+  animation: fade 0.3s ease 0s 1 normal;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+dialog h2 {
+  padding: 10px;
+  background-color: #B2EBF2;
+  margin: 0;
+  color: #FF8A65;
+}
+
+#close{
+  margin: 10px auto 20px auto;
+  padding: auto 10px;
+
+  color: #ff0099;
+  background: #00cccc;
+  font-size: 12pt;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: middle;
+
+  border: 2px solid #00cccc;
+  border-radius: 10px;
+  box-shadow: 0px 1px 3px #333333;
+}
+        
+.dialog-content{
+  /* display: flex; */
+  display: block;
 }
