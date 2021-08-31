@@ -75,13 +75,12 @@ function setVersion() {
 }
 
 function setSelectBox() {
-    // let objOption = document.createElement("option");
     for (let i = 0; i < commandData.length; i++) {
         if (commandData[i][0] != 0) {
             let objOption = document.createElement('option');
             objOption.setAttribute('value', i);
             objOption.text = commandData[i][1];
-            objOption.value = commandData[i][1]; // = i;
+            objOption.value = commandData[i][1];
             objSelectCommand.appendChild(objOption);
         }
     }
@@ -95,8 +94,8 @@ function setDescription() {
 async function download() {
     if (!device) return;
     
-    let commandArray = parseCommand(objProgramTA);
-    // let sendcode = compileCommand(commandArray);
+    let commandList = parseCommand();
+    // let sendcode = compileCommand(commandList);
 
     const waitFor = duration => new Promise(r => setTimeout(r, duration));
     
@@ -109,10 +108,10 @@ async function download() {
     
     await device.sendReport(reportId, new Uint8Array(dataS));
 
-    for (let i = 0; i < commandArray.length; i++) {
-        if (commandArray[i].length == 0) continue;
+    for (let i = 0; i < commandList.length; i++) {
+        if (commandList[i].length == 0) continue;
 
-        let command = commandArray[i].split(',');
+        let command = commandList[i].split(',');
         let data = Array(64).fill(255, 0);
         data[1] = 16;
         
@@ -144,58 +143,54 @@ let commandDictionary = {};
 // '命令':[0命令コード, 1命令サイズ（byte）, 2'命令の説明', 3'引数1名称', 4'引数1説明', 5引数1最小値, 6引数1最大値, 7'引数2名称', 8'引数2説明', 9引数2最小値, 10引数2最大値]
 function makeCommandDictionary() {
     for (let i = 0; i < commandData.length; i++) {
-        commandDictionary[commandData[i][1]] = [];
-        commandDictionary[commandData[i][1]].push(commandData[i][2]);
-        commandDictionary[commandData[i][1]].push(commandData[i][3]);
-        commandDictionary[commandData[i][1]].push(commandData[i][4]);
+        let command = commandData[i][1];
+        commandDictionary[command] = [];
+        commandDictionary[command].push(commandData[i][2]);
+        commandDictionary[command].push(commandData[i][3]);
+        commandDictionary[command].push(commandData[i][4]);
         if (commandData[i][3] == 1) continue;
-        commandDictionary[commandData[i][1]].push(commandData[i][5]);
-        commandDictionary[commandData[i][1]].push(commandData[i][6]);
-        commandDictionary[commandData[i][1]].push(commandData[i][7]);
-        commandDictionary[commandData[i][1]].push(commandData[i][8]);
+        commandDictionary[command].push({name:commandData[i][5], note:commandData[i][6], min:commandData[i][7], max:commandData[i][8]});
         if (commandData[i][3] == 2) continue;
-        commandDictionary[commandData[i][1]].push(commandData[i][9]);
-        commandDictionary[commandData[i][1]].push(commandData[i][10]);
-        commandDictionary[commandData[i][1]].push(commandData[i][11]);
-        commandDictionary[commandData[i][1]].push(commandData[i][12]);
+        commandDictionary[command].push({name:commandData[i][9], note:commandData[i][10], min:commandData[i][11], max:commandData[i][12]});
     }
 }
   
-function parseCommand(element) {
+function parseCommand() {
     console.log("parseCommand");
 
-    let commands = element.value;
-    commands     = commands.replace(/ /g, "");
-    commands     = commands.replace(/　/g, "");
-    commands     = commands.replace(/，/g, ",");
-    commands     = commands.replace(/[０-９]/g, function(s) {
+    let commandList = objProgramTA.value;
+    commandList     = commandList.replace(/ /g, "");
+    commandList     = commandList.replace(/　/g, "");
+    commandList     = commandList.replace(/，/g, ",");
+    commandList     = commandList.replace(/[０-９]/g, function(s) {
         return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
     });
-    commands     = commands.replace(/\n$/g, "");
-    // commands     = commands.replace(/\n\n+/g, "\n");
-    // commands     = commands.replace(/^\n/g, "");
+    commandList     = commandList.replace(/\n$/g, "");
+    // commandList     = commandList.replace(/\n\n+/g, "\n");
+    // commandList     = commandList.replace(/^\n/g, "");
 
-    let commandArray = commands.split('\n');
-    console.log(commandArray);
+    commandList = commandList.split('\n');
+    console.log(commandList);
 
-    return commandArray;
+    return commandList;
 }
 
-function compileCommand(commandArray) {
+function compileCommand(commandList) {
     let sendcode = [];
 
-    for (let i = 0; i < commandArray.length; i++) {
-        if (commandArray[i].length == 0) continue;
+    for (let i = 0; i < commandList.length; i++) {
+        if (commandList[i].length == 0) continue;
 
-        let command = commandArray[i].split(',');
+        let commandArray = commandList[i].split(',');
+        let command = commandArray[0];
 
-        if (command[0] in commandDictionary) {
-            sendcode.push(commandDictionary[command[0]][0]);
-            for (c = 1; c < commandDictionary[command[0]][1]; c++) {
-                sendcode.push(parseInt(command[1], 10));
+        if (command in commandDictionary) {
+            sendcode.push(commandDictionary[command][0]);
+            for (c = 1; c < commandDictionary[command][1]; c++) {
+                sendcode.push(parseInt(commandArray[c], 10));
             }
         } else {
-            console.log('Line ' + String(i + 1) + ': ' + command[0] + ' not found!');
+            console.log('Line ' + String(i + 1) + ': ' + command + ' not found!');
         }
     }
 
@@ -274,14 +269,14 @@ function addCommandToTextArea() {
     argValue[1] = document.getElementById("inputArg1").value;
     argValue[2] = document.getElementById("inputArg2").value;
 
-    let commands = objProgramTA.value;
-    let pos      = objProgramTA.selectionStart;
-    let len      = commands.length;
-    let before   = commands.substr(0, pos);
-    let after    = commands.substr(pos, len);
-    let word     = commandData[objSelectCommand.selectedIndex][1];
+    let commandList = objProgramTA.value;
+    let pos          = objProgramTA.selectionStart;
+    let len          = commandList.length;
+    let before       = commandList.substr(0, pos);
+    let after        = commandList.substr(pos, len);
+    let word         = objSelectCommand.value;
 
-    for (let i = 1; i < commandData[objSelectCommand.selectedIndex][3]; i++) {
+    for (let i = 1; i < commandDictionary[objSelectCommand.value][1]; i++) {
         word = word + ', ' + argValue[i];
     }
 
@@ -304,11 +299,11 @@ function setDialogBox() {
         case 1:
             return false;
         case 2:
-            document.getElementById("arg1Name").innerText = commandDictionary[command][3];
-            document.getElementById("arg1Description").innerText = commandDictionary[command][4];
+            document.getElementById("arg1Name").innerText = commandDictionary[command][3]['name'];
+            document.getElementById("arg1Description").innerText = commandDictionary[command][3]['note'];
             if (isNaN(argValue[1])) {
-                console.log(argValue[1], commandDictionary[command][5]);
-                document.getElementById("inputArg1").value = commandDictionary[command][5];
+                console.log(argValue[1], commandDictionary[command][3]['min']);
+                document.getElementById("inputArg1").value = commandDictionary[command][3]['min'];
             } else {
                 document.getElementById("inputArg1").value = argValue[1];
             }
@@ -316,20 +311,20 @@ function setDialogBox() {
             document.getElementById("arg2").style.display = "none";
             break;
         case 3:
-            document.getElementById("arg1Name").innerText = commandDictionary[command][3];
-            document.getElementById("arg1Description").innerText = commandDictionary[command][4];
+            document.getElementById("arg1Name").innerText = commandDictionary[command][3]['name'];
+            document.getElementById("arg1Description").innerText = commandDictionary[command][3]['note'];
             if (isNaN(argValue[1])) {
-                // console.log(argValue[1], commandDictionary[command][5]);
-                document.getElementById("inputArg1").value = commandDictionary[command][5];
+                console.log(argValue[1], commandDictionary[command][3]['min']);
+                document.getElementById("inputArg1").value = commandDictionary[command][3]['min'];
             } else {
                 document.getElementById("inputArg1").value = argValue[1];
             }
             document.getElementById("arg2").style.display = "block";
-            document.getElementById("arg2Name").innerText = commandDictionary[command][7];
-            document.getElementById("arg2Description").innerText = commandDictionary[command][8];
+            document.getElementById("arg2Name").innerText = commandDictionary[command][4]['name'];
+            document.getElementById("arg2Description").innerText = commandDictionary[command][4]['note'];
             if (isNaN(argValue[2])) {
-                // console.log(argValue[2], commandDictionary[command][9]);
-                document.getElementById("inputArg2").value = commandDictionary[command][9];
+                // console.log(argValue[2], commandDictionary[command][4]['min']);
+                document.getElementById("inputArg2").value = commandDictionary[command][4]['min'];
             } else {
                 document.getElementById("inputArg2").value = argValue[2];
             }
