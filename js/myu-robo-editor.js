@@ -301,11 +301,18 @@ function setDialogBox() {
         case 2:
             document.getElementById("arg1Name").innerText = commandDictionary[command][3]['name'];
             document.getElementById("arg1Description").innerText = commandDictionary[command][3]['note'];
+            document.getElementById("inputArg1").min = commandDictionary[command][3]['min'];
+            document.getElementById("inputArg1").max = commandDictionary[command][3]['max'];
             if (isNaN(argValue[1])) {
-                console.log(argValue[1], commandDictionary[command][3]['min']);
                 document.getElementById("inputArg1").value = commandDictionary[command][3]['min'];
             } else {
-                document.getElementById("inputArg1").value = argValue[1];
+                if (argValue[1] < commandDictionary[command][3]['min']) {
+                    document.getElementById("inputArg1").value = commandDictionary[command][3]['min'];
+                } else if (argValue[1] > commandDictionary[command][3]['max']) {
+                    document.getElementById("inputArg1").value = commandDictionary[command][3]['max'];
+                } else {
+                    document.getElementById("inputArg1").value = argValue[1];
+                }  
             }
             arg2Value = null;
             document.getElementById("arg2").style.display = "none";
@@ -313,20 +320,34 @@ function setDialogBox() {
         case 3:
             document.getElementById("arg1Name").innerText = commandDictionary[command][3]['name'];
             document.getElementById("arg1Description").innerText = commandDictionary[command][3]['note'];
+            document.getElementById("inputArg1").min = commandDictionary[command][3]['min'];
+            document.getElementById("inputArg1").max = commandDictionary[command][3]['max'];
             if (isNaN(argValue[1])) {
-                console.log(argValue[1], commandDictionary[command][3]['min']);
                 document.getElementById("inputArg1").value = commandDictionary[command][3]['min'];
             } else {
-                document.getElementById("inputArg1").value = argValue[1];
+                if (argValue[1] < commandDictionary[command][3]['min']) {
+                    document.getElementById("inputArg1").value = commandDictionary[command][3]['min'];
+                } else if (argValue[1] > commandDictionary[command][3]['max']) {
+                    document.getElementById("inputArg1").value = commandDictionary[command][3]['max'];
+                } else {
+                    document.getElementById("inputArg1").value = argValue[1];
+                }  
             }
             document.getElementById("arg2").style.display = "block";
             document.getElementById("arg2Name").innerText = commandDictionary[command][4]['name'];
             document.getElementById("arg2Description").innerText = commandDictionary[command][4]['note'];
+            document.getElementById("inputArg2").min = commandDictionary[command][4]['min'];
+            document.getElementById("inputArg2").max = commandDictionary[command][4]['max'];
             if (isNaN(argValue[2])) {
-                // console.log(argValue[2], commandDictionary[command][4]['min']);
                 document.getElementById("inputArg2").value = commandDictionary[command][4]['min'];
             } else {
-                document.getElementById("inputArg2").value = argValue[2];
+                if (argValue[2] < commandDictionary[command][4]['min']) {
+                    document.getElementById("inputArg2").value = commandDictionary[command][4]['min'];
+                } else if (argValue[2] > commandDictionary[command][4]['max']) {
+                    document.getElementById("inputArg2").value = commandDictionary[command][4]['max'];
+                } else {
+                    document.getElementById("inputArg2").value = argValue[2];
+                }  
             }
 
             break;
