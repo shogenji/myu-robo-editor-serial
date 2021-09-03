@@ -237,6 +237,8 @@ span#version {
   font-size: 24px;
   line-height: 140%;
   overflow: scroll;
+  
+  tab-size: 8;
 
   border: 2px solid #00cccc;
   box-sizing: border-box;

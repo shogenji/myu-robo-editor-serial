@@ -28,8 +28,8 @@ function startup() {
     objLoadProgram.addEventListener('change', loadProgram);
 
     objSelectCommand.addEventListener('change', setDescription, false);
-    // objSelectCommand.addEventListener('dblclick', addCommand, false);
-
+    objProgramTA.addEventListener('keydown', onKeydown, false);
+    
     setVersion();
     setSelectBox();
 
@@ -88,6 +88,21 @@ function setSelectBox() {
 
 function setDescription() {
     objCommandDescription.innerText = commandDictionary[objSelectCommand.value][2];
+}
+
+function onKeydown(event) {
+    if (event.keyCode != 9) {
+      return;
+    }
+
+    event.preventDefault();
+
+    let carretPosition = objProgramTA.selectionStart;
+    let carretLeft     = objProgramTA.value.substr(0, carretPosition);
+    let carretRight    = objProgramTA.value.substr(carretPosition, objProgramTA.value.length);
+
+    objProgramTA.value = carretLeft + "\t" + carretRight;
+    objProgramTA.selectionEnd = carretPosition+1;
 }
 
 
@@ -159,10 +174,11 @@ function parseCommand() {
     console.log("parseCommand");
 
     let commandList = objProgramTA.value;
-    commandList     = commandList.replace(/ /g, "");
-    commandList     = commandList.replace(/　/g, "");
-    commandList     = commandList.replace(/，/g, ",");
-    commandList     = commandList.replace(/[０-９]/g, function(s) {
+    commandList     = commandList.replace(/ /g, "");    // 半角スペース除去
+    commandList     = commandList.replace(/　/g, "");   // 全角スペース除去
+    commandList     = commandList.replace(/\t/g, "");   // タブ除去
+    commandList     = commandList.replace(/，/g, ",");  // 全角カンマ → 半角
+    commandList     = commandList.replace(/[０-９]/g, function(s) { // 全角数字 → 半角
         return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
     });
     commandList     = commandList.replace(/\n$/g, "");
