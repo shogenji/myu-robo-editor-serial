@@ -11,7 +11,6 @@ a.button {
   text-align: left;
   text-decoration: none;
   white-space: nowrap;
-  vertical-align: middle;
 
   border: 2px solid #00cccc;
   border-radius: 10px;
@@ -52,7 +51,6 @@ label#lblLoadProgram {
   text-align: left;
   text-decoration: none;
   white-space: nowrap;
-  vertical-align: middle;
 
   border: 2px solid #00cccc;
   border-radius: 10px;
