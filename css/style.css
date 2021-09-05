@@ -1,13 +1,15 @@
 
-a.button {
+.button {
   margin-bottom: 20px;
   padding: 5px 10px;
-  display: block;
+  display: inline-block;
   color: #ff0099;
   background: #00cccc;
 
+  font-family: 'M PLUS Rounded 1c', sans-serif;
   font-size: 18pt;
   font-weight: bold;
+  line-height: 1.0;
   text-align: left;
   text-decoration: none;
   white-space: nowrap;
@@ -23,6 +25,7 @@ a.button::before {
   width: 40px;
   height: 40px;
   margin: 0px 10px 0 0;
+  padding: 0;
   vertical-align: middle;
 }
 
@@ -32,29 +35,13 @@ a.button:hover {
 }
 
 
-
+/* ファイル読込ボタン */
 input[type="file"] {
   display: none;
 }
 
 label#lblLoadProgram {
   position: relative;
-
-  margin: 0;
-  padding: 5px 10px;
-  display: block;
-  color: #ff0099;
-  background: #00cccc;
-
-  font-size: 18pt;
-  font-weight: bold;
-  text-align: left;
-  text-decoration: none;
-  white-space: nowrap;
-
-  border: 2px solid #00cccc;
-  border-radius: 10px;
-  box-shadow: 0px 1px 3px #333333;
 }
 
 label#lblLoadProgram:hover {
@@ -147,3 +134,35 @@ label#lblLoadProgram::before {
   background: url("../img/button/load.png") no-repeat;
   background-size: contain;
 }
+
+
+
+/* リモートコントロールボタン */
+#remote-controller .button {
+  position: absolute;
+  width: calc((100% - 20px) / 3);
+  height: 50px;
+
+  text-align: center;
+}
+
+#btnTurnLeft {
+  top: 30px;
+  left: 0px;
+}
+
+#btnForward {
+  top: 0px;
+  left: calc(((100% - 20px) / 3) + 10px);
+}
+
+#btnBackward {
+  top: 60px;
+  left: calc(((100% - 20px) / 3) + 10px);
+}
+
+#btnTurnRight {
+  top: 30px;
+  right: 0px;
+}
+
