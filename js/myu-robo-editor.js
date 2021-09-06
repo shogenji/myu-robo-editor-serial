@@ -8,6 +8,10 @@ const objConnect = document.getElementById('btnConnect');
 const objDownload = document.getElementById('btnDownload');
 const objSaveProgram = document.getElementById('btnSaveProgram');
 const objLoadProgram = document.getElementById('btnLoadProgram');
+const objBtnForward = document.getElementById('btnForward');
+const objBtnBackward = document.getElementById('btnBackward');
+const objBtnTurnLeft = document.getElementById('btnTurnLeft');
+const objBtnTurnRight = document.getElementById('btnTurnRight');
 
 
 function startup() {
@@ -34,32 +38,32 @@ function startup() {
     setSelectBox();
 
     makeCommandDictionary();
-    console.log(commandDictionary);
+    // console.log(commandDictionary);
 
-// const btnForward = document.getElementById('btnForward');
-// const btnBackward = document.getElementById('btnBackward');
-// const btnTurnLeft = document.getElementById('btnTurnLeft');
-// const btnTurnRight = document.getElementById('btnTurnRight');
 
-// btnForward.addEventListener('mousedown', remoteForward, false);
-// btnForward.addEventListener('touchstart', remoteForward, false);
-// btnForward.addEventListener('mouseup', remoteMouseup, false);
-// btnForward.addEventListener('touchend', remoteMouseup, false);
+    objBtnForward.addEventListener('mousedown', remoteForward, false);
+    objBtnForward.addEventListener('touchstart', remoteForward, false);
+    objBtnForward.addEventListener('mouseup', remoteStop, false);
+    objBtnForward.addEventListener('touchend', remoteStop, false);
+    objBtnForward.style.opacity = "0.4";
+    
+    objBtnBackward.addEventListener('mousedown', remoteBackward, false);
+    objBtnBackward.addEventListener('touchstart', remoteBackward, false);
+    objBtnBackward.addEventListener('mouseup', remoteStop, false);
+    objBtnBackward.addEventListener('touchend', remoteStop, false);
+    objBtnBackward.style.opacity = "0.4";
 
-// btnBackward.addEventListener('mousedown', remoteBackward, false);
-// btnBackward.addEventListener('touchstart', remoteBackward, false);
-// btnBackward.addEventListener('mouseup', remoteMouseup, false);
-// btnBackward.addEventListener('touchend', remoteMouseup, false);
+    objBtnTurnLeft.addEventListener('mousedown', remoteTurnLeft, false);
+    objBtnTurnLeft.addEventListener('touchstart', remoteTurnLeft, false);
+    objBtnTurnLeft.addEventListener('mouseup', remoteStop, false);
+    objBtnTurnLeft.addEventListener('touchend', remoteStop, false);
+    objBtnTurnLeft.style.opacity = "0.4";
 
-// btnTurnLeft.addEventListener('mousedown', remoteTurnLeft, false);
-// btnTurnLeft.addEventListener('touchstart', remoteTurnLeft, false);
-// btnTurnLeft.addEventListener('mouseup', remoteMouseup, false);
-// btnTurnLeft.addEventListener('touchend', remoteMouseup, false);
-
-// btnTurnRight.addEventListener('mousedown', remoteTurnRight, false);
-// btnTurnRight.addEventListener('touchstart', remoteTurnRight, false);
-// btnTurnRight.addEventListener('mouseup', remoteMouseup, false);
-// btnTurnRight.addEventListener('touchend', remoteMouseup, false);
+    objBtnTurnRight.addEventListener('mousedown', remoteTurnRight, false);
+    objBtnTurnRight.addEventListener('touchstart', remoteTurnRight, false);
+    objBtnTurnRight.addEventListener('mouseup', remoteStop, false);
+    objBtnTurnRight.addEventListener('touchend', remoteStop, false);
+    objBtnTurnRight.style.opacity = "0.4";
 }
 
 document.addEventListener("DOMContentLoaded", startup);
