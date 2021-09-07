@@ -243,12 +243,6 @@ function loadProgram(e) {
     }
 }
 
-window.oncontextmenu = function(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    return false;
-};
-
 
 // 引数入力用ダイアログボックス
 
