@@ -94,7 +94,7 @@ dialog::backdrop {
   cursor: pointer;
 }
 
-#close {
+#btnSet {
   margin: 10px auto 20px auto;
   padding: auto 10px;
 
