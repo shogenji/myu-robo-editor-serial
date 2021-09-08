@@ -18,21 +18,14 @@ button {
   box-shadow: 0px 1px 3px #333333;
 }
 
-#controller button::before {
-  content: "";
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  margin: 0px 10px 0 0;
-  padding: 0;
-  vertical-align: middle;
-}
-
 button:hover {
   opacity: 0.7;
   transition: 0.3s ease-out;
 }
 
+button:focus {
+  outline: none;
+}
 
 /* ファイル読込ボタン */
 input[type="file"] {
@@ -97,6 +90,16 @@ label#lblLoadProgram::changed::after {
   font-size: 14pt;
 }
 
+
+#controller button::before {
+  content: "";
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  margin: 0px 10px 0 0;
+  padding: 0;
+  vertical-align: middle;
+}
 
 #btnConnect {
   width: calc(50% - 10px);

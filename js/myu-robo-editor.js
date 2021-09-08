@@ -256,8 +256,8 @@ function loadProgram(e) {
 
 let argValue = new Array(3);
 
-const objBtnSet = document.getElementById('btnSet');
 const objDialogArg = document.getElementById('dialogArg');
+const objBtnSet = document.getElementById('btnSet');
 
 objSelectCommand.addEventListener('dblclick', function() {
     if (setDialogBox()) {
@@ -274,7 +274,7 @@ objBtnSet.addEventListener('click', function() {
 
 objDialogArg.addEventListener('click', function(event) {
     if (event.target === objDialogArg) {
-        objDialogArg.objBtnSet('cancelled');
+        objDialogArg.close('cancelled');
     }
 });
 

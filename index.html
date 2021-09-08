@@ -91,6 +91,15 @@
     </div>
   </dialog>
 
+  <dialog id="dialogAlert">
+    <h2 id="alertTitle">警告</h2>
+    <div class="dialog-content">
+      <p id="alertMessage">警告です！</p>
+      <button id="btnOK">OK</button>
+      <button id="btnCancel">Cancel</button>
+    </div>
+  </dialog>
+
   <script src="./js/command.js"></script>
   <script src="./js/myu-robo-common.js"></script>
   <script src="./js/myu-robo-editor.js"></script>
@@ -102,12 +111,35 @@
   function test(e) {
     loadMusic();
     // parseCommand();
+    document.getElementById('alertTitle').innerText = "警告ダイアログのテストですよ！";
+    document.getElementById('alertMessage').innerText = "警告ダイアログのテストですよ！";
+    objDialogAlert.showModal();
+    // document.activeElement.blur();
   }
 
   function loadMusic(e) {
     objProgramTA.value = "電子音, 3, 39\n電子音, 3, 41\n電子音, 10, 39\n電子音, 3, 39\n電子音, 3, 41\n電子音, 6, 39\n停止, 2\n電子音, 2, 78\n電子音, 3, 39\n電子音, 3, 41\n電子音, 6, 46\n電子音, 2, 52\n電子音, 2, 59\n電子音, 8, 52\n停止, 2\n電子音, 4, 62\n電子音, 2, 52\n電子音, 10, 46\n電子音, 4, 46\n電子音, 2, 39\n電子音, 10, 34\n電子音, 4, 39\n電子音, 2, 34\n電子音, 16, 31";
   }
   
+
+  const objDialogAlert = document.getElementById('dialogAlert');
+  const objBtnOK = document.getElementById('btnOK');
+  const objBtnCancel = document.getElementById('btnCancel');
+  
+  objBtnOK.addEventListener('click', function() {
+    objDialogAlert.close();
+  });
+
+  objBtnCancel.addEventListener('click', function() {
+    objDialogAlert.close();
+  });
+
+  objDialogAlert.addEventListener('click', function(event) {
+    if (event.target === objDialogAlert) {
+      objDialogAlert.close('cancelled');
+    }
+  });
+
   </script>
 
   </body>
