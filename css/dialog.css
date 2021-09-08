@@ -54,7 +54,7 @@ dialog::backdrop {
   text-align: center;
 }
 
-h2 {
+dialog h2 {
   width: 100%;
   margin: 0px auto 20px auto;
   padding: 10px 20px;
@@ -67,7 +67,7 @@ h2 {
   white-space: nowrap;
 }
 
-p {
+.dialog-content p {
   width: 100%;
   margin: 0px auto 20px auto;
   padding: 10px 20px;
