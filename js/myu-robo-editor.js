@@ -1,3 +1,5 @@
+let alertMode = "music";
+let dirtyFlag = false;
 
 const objSelectCommand = document.getElementById('selectCommand');
 const objCommandDescription = document.getElementById('commandDescription');
@@ -236,14 +238,19 @@ function clearFilePath() {
 function loadProgram() {
     for (file of objLoadProgram.files) {
         console.log(file);
-        // Alert Dialog
-        reader.readAsText(file, 'UTF-8');
-        reader.onload = ()=> {
-            objProgramTA.value = reader.result;
-        };
+        alertMode = "loadProgram";
+        document.getElementById('alertTitle').innerText = "プログラムを読み込みます";
+        document.getElementById('alertMessage').innerText = "プログラムを読み込みます。&NewLine;現在のプログラムは消去されます。";
+        objDialogAlert.showModal();
     }
 }
 
+function setProgram() {
+    reader.readAsText(file, 'UTF-8');
+    reader.onload = ()=> {
+        objProgramTA.value = reader.result;
+    };
+}
 
 // 引数入力用ダイアログボックス
 
@@ -369,3 +376,30 @@ function setDialogBox() {
 
     return true;
 }
+
+
+// アラートダイアログボックス
+
+const objDialogAlert = document.getElementById('dialogAlert');
+const objBtnOK = document.getElementById('btnOK');
+const objBtnCancel = document.getElementById('btnCancel');
+
+objBtnOK.addEventListener('click', function() {
+  if (alertMode == "loadProgram") {
+    setProgram();
+  } else if (alertMode == "loadMusic") {
+    loadMusic();
+  } 
+
+  objDialogAlert.close();
+});
+
+objBtnCancel.addEventListener('click', function() {
+  objDialogAlert.close();
+});
+
+objDialogAlert.addEventListener('click', function(event) {
+  if (event.target === objDialogAlert) {
+    objDialogAlert.close('cancelled');
+  }
+});
