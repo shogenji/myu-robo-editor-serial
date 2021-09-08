@@ -229,13 +229,14 @@ function saveProgram() {
 let reader = new FileReader();
 
 // 保持しているファイル名を消す
-function clearFilePath(e) {
-    this.value = null;
+function clearFilePath() {
+    objLoadProgram.value = null;
 }
 
-function loadProgram(e) {
+function loadProgram() {
     for (file of objLoadProgram.files) {
         console.log(file);
+        // Alert Dialog
         reader.readAsText(file, 'UTF-8');
         reader.onload = ()=> {
             objProgramTA.value = reader.result;

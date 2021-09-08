@@ -95,8 +95,8 @@
     <h2 id="alertTitle">警告</h2>
     <div class="dialog-content">
       <p id="alertMessage">警告です！</p>
-      <button id="btnOK">OK</button>
-      <button id="btnCancel">Cancel</button>
+      <button id="btnOK">はい</button>
+      <button id="btnCancel">いいえ</button>
     </div>
   </dialog>
 
@@ -108,11 +108,13 @@
 
   document.getElementById("version").addEventListener('dblclick', test, false);
 
+  let alertMode = "music";
+  let dirtyFlag = false;
+
   function test(e) {
-    loadMusic();
     // parseCommand();
-    document.getElementById('alertTitle').innerText = "警告ダイアログのテストですよ！";
-    document.getElementById('alertMessage').innerText = "警告ダイアログのテストですよ！";
+    document.getElementById('alertTitle').innerText = "プログラムを読み込みます";
+    document.getElementById('alertMessage').innerText = "プログラムを読み込みます。現在のプログラムは上書き（消去）されます。";
     objDialogAlert.showModal();
     // document.activeElement.blur();
   }
@@ -127,6 +129,10 @@
   const objBtnCancel = document.getElementById('btnCancel');
   
   objBtnOK.addEventListener('click', function() {
+    if (alertMode == "music") {
+      loadMusic();
+    }
+
     objDialogAlert.close();
   });
 
