@@ -237,7 +237,6 @@ function clearFilePath() {
 
 function loadProgram() {
     for (file of objLoadProgram.files) {
-        console.log(file);
         alertMode = "loadProgram";
         document.getElementById('alertTitle').innerText = "プログラムを読み込みます";
         document.getElementById('alertMessage').innerText = "プログラムを読み込みます。\n現在のプログラムは消去されます。";
