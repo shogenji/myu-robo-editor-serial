@@ -1,4 +1,4 @@
-let alertMode = "music";
+let alertMode = "loadMusic";
 let dirtyFlag = false;
 
 const objSelectCommand = document.getElementById('selectCommand');
@@ -240,7 +240,7 @@ function loadProgram() {
         console.log(file);
         alertMode = "loadProgram";
         document.getElementById('alertTitle').innerText = "プログラムを読み込みます";
-        document.getElementById('alertMessage').innerText = "プログラムを読み込みます。&NewLine;現在のプログラムは消去されます。";
+        document.getElementById('alertMessage').innerText = "プログラムを読み込みます。\n現在のプログラムは消去されます。";
         objDialogAlert.showModal();
     }
 }
