@@ -1,4 +1,5 @@
-var device;
+let device;
+let connectFlag = false;
   
 async function connect() {
     console.log(event.type);
