@@ -113,7 +113,10 @@ function onKeydown(event) {
 
 
 async function download() {
-    if (!device) return;
+    // if (!device) return;
+    if (isConnected == false) {
+        return;
+    }
     
     let commandList = parseCommand();
     // let sendcode = compileCommand(commandList);
