@@ -59,4 +59,3 @@ function handleInputReport(e) {
   
 navigator.hid.addEventListener("connect", handleConnectedDevice);
 navigator.hid.addEventListener("disconnect", handleDisconnectedDevice);
-
