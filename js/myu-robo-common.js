@@ -68,10 +68,3 @@ function handleInputReport(e) {
 navigator.hid.addEventListener("connect", handleConnectedDevice);
 navigator.hid.addEventListener("disconnect", handleDisconnectedDevice);
 
-
-window.oncontextmenu = function(event) {
-    event.preventDefault();
-    event.stopPropagation();
-
-    return false;
-};
