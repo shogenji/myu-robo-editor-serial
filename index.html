@@ -14,26 +14,6 @@
   <!-- <link href="./css/dialog-polyfill.css" rel="stylesheet"> -->
   <!-- <script src="./js/dialog-polyfill.js"></script> -->
 
-  <script src="./js/command.js"></script>
-  <script src="./js/myu-robo-common.js"></script>
-  <script src="./js/myu-robo-editor.js"></script>
-  <script src="./js/myu-robo-remote.js"></script>
-
-  <script type="text/javascript" language="javascript">
-    document.getElementById("version").addEventListener('dblclick', test, false);
-
-    function test() {
-      alertMode = "loadMusic";
-      document.getElementById('alertTitle').innerText = "音楽プログラムを読み込みます";
-      document.getElementById('alertMessage').innerText = "音楽プログラムを読み込みます！\n現在のプログラムは上書き（消去）されます。\n何の曲かわかるかな？";
-      objDialogAlert.showModal();
-    }
-
-    function loadMusic() {
-      objProgramTA.value = "電子音, 3, 39\n電子音, 3, 41\n電子音, 10, 39\n電子音, 3, 39\n電子音, 3, 41\n電子音, 6, 39\n停止, 2\n電子音, 2, 78\n電子音, 3, 39\n電子音, 3, 41\n電子音, 6, 46\n電子音, 2, 52\n電子音, 2, 59\n電子音, 8, 52\n停止, 2\n電子音, 4, 62\n電子音, 2, 52\n電子音, 10, 46\n電子音, 4, 46\n電子音, 2, 39\n電子音, 10, 34\n電子音, 4, 39\n電子音, 2, 34\n電子音, 16, 31";
-    }
-  </script>
-
   <style>
   </style>
 
@@ -118,6 +98,26 @@
       <button id="btnCancel">いいえ</button>
     </div>
   </dialog>
+
+  <script src="./js/command.js"></script>
+  <script src="./js/myu-robo-common.js"></script>
+  <script src="./js/myu-robo-editor.js"></script>
+  <script src="./js/myu-robo-remote.js"></script>
+
+  <script type="text/javascript" language="javascript">
+    document.getElementById("version").addEventListener('dblclick', test, false);
+
+    function test() {
+      alertMode = "loadMusic";
+      document.getElementById('alertTitle').innerText = "音楽プログラムを読み込みます";
+      document.getElementById('alertMessage').innerText = "音楽プログラムを読み込みます！\n現在のプログラムは上書き（消去）されます。\n何の曲かわかるかな？";
+      objDialogAlert.showModal();
+    }
+
+    function loadMusic() {
+      objProgramTA.value = "電子音, 3, 39\n電子音, 3, 41\n電子音, 10, 39\n電子音, 3, 39\n電子音, 3, 41\n電子音, 6, 39\n停止, 2\n電子音, 2, 78\n電子音, 3, 39\n電子音, 3, 41\n電子音, 6, 46\n電子音, 2, 52\n電子音, 2, 59\n電子音, 8, 52\n停止, 2\n電子音, 4, 62\n電子音, 2, 52\n電子音, 10, 46\n電子音, 4, 46\n電子音, 2, 39\n電子音, 10, 34\n電子音, 4, 39\n電子音, 2, 34\n電子音, 16, 31";
+    }
+  </script>
 
 </body>
 </html>
