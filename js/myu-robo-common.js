@@ -30,15 +30,11 @@ async function connect() {
         }   
     }
 
-    document.getElementById("deviceStatus").innerText = device.productName + "に接続しました。";
-    document.getElementById("btnConnect").classList.add("connected");
     isConnected = true;    
 
-    document.getElementById("btnUpload").style.opacity = "1.0";
-    document.getElementById("btnForward").style.opacity = "1.0";
-    document.getElementById("btnBackward").style.opacity = "1.0";
-    document.getElementById("btnTurnLeft").style.opacity = "1.0";
-    document.getElementById("btnTurnRight").style.opacity = "1.0";
+    document.getElementById("deviceStatus").innerText = device.productName + "に接続しました。";
+
+    setButtonStyle();
 }
 
 async function handleConnectedDevice(e) {
@@ -49,15 +45,11 @@ async function handleConnectedDevice(e) {
 async function handleDisconnectedDevice(e) {
     console.log("Device disconnected: " + e.device.productName);
 
-    document.getElementById("deviceStatus").innerText = "接続されていません。";
-    document.getElementById("btnConnect").classList.remove("connected");
     isConnected = false;
+
+    document.getElementById("deviceStatus").innerText = "接続されていません。";
     
-    document.getElementById("btnUpload").style.opacity = "0.4";
-    document.getElementById("btnForward").style.opacity = "0.4";
-    document.getElementById("btnBackward").style.opacity = "0.4";
-    document.getElementById("btnTurnLeft").style.opacity = "0.4";
-    document.getElementById("btnTurnRight").style.opacity = "0.4";
+    setButtonStyle();
 }
 
 function handleInputReport(e) {

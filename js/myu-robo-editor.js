@@ -20,7 +20,6 @@ function startup() {
     if (!("hid" in navigator)) {
         isWebHIDSupported = false;
         document.getElementById("deviceStatus").innerText = "WebHIDに未対応です。";
-        document.getElementById("btnConnect").style.opacity = "0.4";
     }
 
     objBtnConnect.addEventListener('mouseup', connect, false);
@@ -28,8 +27,7 @@ function startup() {
 
     objBtnUpload.addEventListener('mouseup', upload, false);
     // objBtnUpload.addEventListener('touchend', upload, false);
-    objBtnUpload.style.opacity = "0.4";
-    
+
     objBtnSaveProgram.addEventListener('mouseup', saveProgram, false);
     objBtnLoadProgram.addEventListener('click', clearFilePath);
     objBtnLoadProgram.addEventListener('change', loadProgram);
@@ -37,40 +35,62 @@ function startup() {
     objSelectCommand.addEventListener('change', setDescription, false);
     objProgramTA.addEventListener('keydown', onKeydown, false);
     
-    setVersion();
-    setSelectBox();
-
-    makeCommandDictionary();
-    // console.log(commandDictionary);
-
 
     objBtnForward.addEventListener('mousedown', remoteForward, false);
     objBtnForward.addEventListener('touchstart', remoteForward, false);
     objBtnForward.addEventListener('mouseup', remoteStop, false);
     objBtnForward.addEventListener('touchend', remoteStop, false);
-    objBtnForward.style.opacity = "0.4";
     
     objBtnBackward.addEventListener('mousedown', remoteBackward, false);
     objBtnBackward.addEventListener('touchstart', remoteBackward, false);
     objBtnBackward.addEventListener('mouseup', remoteStop, false);
     objBtnBackward.addEventListener('touchend', remoteStop, false);
-    objBtnBackward.style.opacity = "0.4";
 
     objBtnTurnLeft.addEventListener('mousedown', remoteTurnLeft, false);
     objBtnTurnLeft.addEventListener('touchstart', remoteTurnLeft, false);
     objBtnTurnLeft.addEventListener('mouseup', remoteStop, false);
     objBtnTurnLeft.addEventListener('touchend', remoteStop, false);
-    objBtnTurnLeft.style.opacity = "0.4";
 
     objBtnTurnRight.addEventListener('mousedown', remoteTurnRight, false);
     objBtnTurnRight.addEventListener('touchstart', remoteTurnRight, false);
     objBtnTurnRight.addEventListener('mouseup', remoteStop, false);
     objBtnTurnRight.addEventListener('touchend', remoteStop, false);
-    objBtnTurnRight.style.opacity = "0.4";
+
+
+    setVersion();
+    setSelectBox();
+    setButtonStyle();
+
+    makeCommandDictionary();
+    // console.log(commandDictionary);
 }
 
 document.addEventListener("DOMContentLoaded", startup);
 
+function setButtonStyle() {
+    if (!isWebHIDSupported) {
+        objBtnConnect.style.opacity = "0.4";
+    }
+
+    if (isConnected) {
+        objBtnConnect.classList.add("connected");
+
+        objBtnUpload.style.opacity = "1.0";
+        objBtnForward.style.opacity = "1.0";
+        objBtnBackward.style.opacity = "1.0";
+        objBtnTurnLeft.style.opacity = "1.0";
+        objBtnTurnRight.style.opacity = "1.0";
+
+    } else {
+        objBtnConnect.classList.remove("connected");
+    
+        objBtnUpload.style.opacity = "0.4";
+        objBtnForward.style.opacity = "0.4";
+        objBtnBackward.style.opacity = "0.4";
+        objBtnTurnLeft.style.opacity = "0.4";
+        objBtnTurnRight.style.opacity = "0.4";
+    }
+}
 
 function setVersion() {
     let modified = new Date(document.lastModified);
@@ -243,11 +263,11 @@ let reader = new FileReader();
 
 // 保持しているファイル名を消す
 function clearFilePath() {
-    objLoadProgram.value = null;
+    objBtnLoadProgram.value = null;
 }
 
 function loadProgram() {
-    for (file of objLoadProgram.files) {
+    for (file of objBtnLoadProgram.files) {
         alertMode = "loadProgram";
         document.getElementById('alertTitle').innerText = "プログラムを読み込みます";
         document.getElementById('alertMessage').innerText = "プログラムを読み込みます。\n現在のプログラムは消去されます。";
@@ -260,6 +280,7 @@ function setProgram() {
     reader.onload = ()=> {
         objProgramTA.value = reader.result;
     };
+    document.getElementById('inputProgramName').value = file.name;
 }
 
 // 引数入力用ダイアログボックス
