@@ -1,6 +1,4 @@
-
 async function remoteForward() {
-    // if (!device) return;
     if (!isConnected) return;
 
     const data = Uint8Array.from([  2,   2,   0, ...Array(61).fill(255)]);
@@ -8,7 +6,6 @@ async function remoteForward() {
 }
 
 async function remoteBackward() {
-    // if (!device) return;
     if (!isConnected) return;
 
     const data = Uint8Array.from([  2,   8,   0, ...Array(61).fill(255)]);
@@ -16,7 +13,6 @@ async function remoteBackward() {
 }
 
 async function remoteTurnLeft() {
-    // if (!device) return;
     if (!isConnected) return;
 
     const data = Uint8Array.from([  2,  11,   0, ...Array(61).fill(255)]);
@@ -24,7 +20,6 @@ async function remoteTurnLeft() {
 }
 
 async function remoteTurnRight() {
-    // if (!device) return;
     if (!isConnected) return;
 
     const data = Uint8Array.from([  2,  10,   0, ...Array(61).fill(255)]);
@@ -32,7 +27,6 @@ async function remoteTurnRight() {
 }
 
 async function remoteStop() {
-    // if (!device) return;
     if (!isConnected) return;
 
     const data = Uint8Array.from([  2,   0,   0, ...Array(61).fill(255)]);
