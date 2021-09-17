@@ -34,7 +34,7 @@ async function connect() {
     document.getElementById("btnConnect").classList.add("connected");
     isConnected = true;    
 
-    document.getElementById("btnDownload").style.opacity = "1.0";
+    document.getElementById("btnUpload").style.opacity = "1.0";
     document.getElementById("btnForward").style.opacity = "1.0";
     document.getElementById("btnBackward").style.opacity = "1.0";
     document.getElementById("btnTurnLeft").style.opacity = "1.0";
@@ -53,7 +53,7 @@ async function handleDisconnectedDevice(e) {
     document.getElementById("btnConnect").classList.remove("connected");
     isConnected = false;
     
-    document.getElementById("btnDownload").style.opacity = "0.4";
+    document.getElementById("btnUpload").style.opacity = "0.4";
     document.getElementById("btnForward").style.opacity = "0.4";
     document.getElementById("btnBackward").style.opacity = "0.4";
     document.getElementById("btnTurnLeft").style.opacity = "0.4";

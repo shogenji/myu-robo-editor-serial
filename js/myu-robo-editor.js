@@ -1,12 +1,13 @@
 let alertMode = "loadMusic";
 let dirtyFlag = false;
+let isWebHIDSupported = true;
 
 const objSelectCommand = document.getElementById('selectCommand');
 const objCommandDescription = document.getElementById('commandDescription');
 const objProgramTA = document.getElementById('programTextArea');
 const objVersion = document.getElementById("version");
 const objBtnConnect = document.getElementById('btnConnect');
-const objBtnDownload = document.getElementById('btnDownload');
+const objBtnUpload = document.getElementById('btnUpload');
 const objBtnSaveProgram = document.getElementById('btnSaveProgram');
 const objBtnLoadProgram = document.getElementById('btnLoadProgram');
 const objBtnForward = document.getElementById('btnForward');
@@ -17,6 +18,7 @@ const objBtnTurnRight = document.getElementById('btnTurnRight');
 
 function startup() {
     if (!("hid" in navigator)) {
+        isWebHIDSupported = false;
         document.getElementById("deviceStatus").innerText = "WebHIDに未対応です。";
         document.getElementById("btnConnect").style.opacity = "0.4";
     }
@@ -24,9 +26,9 @@ function startup() {
     objBtnConnect.addEventListener('mouseup', connect, false);
     // objBtnConnect.addEventListener('touchend', connect, false);
 
-    objBtnDownload.addEventListener('mouseup', download, false);
-    // objBtnDownload.addEventListener('touchend', download, false);
-    objBtnDownload.style.opacity = "0.4";
+    objBtnUpload.addEventListener('mouseup', upload, false);
+    // objBtnUpload.addEventListener('touchend', upload, false);
+    objBtnUpload.style.opacity = "0.4";
     
     objBtnSaveProgram.addEventListener('mouseup', saveProgram, false);
     objBtnLoadProgram.addEventListener('click', clearFilePath);
@@ -111,7 +113,7 @@ function onKeydown(event) {
 }
 
 
-async function download() {
+async function upload() {
     if (isConnected == false) {
         return;
     }
