@@ -6,10 +6,10 @@ const objCommandDescription = document.getElementById('commandDescription');
 const objEditArea = document.getElementById('editArea');
 const objProgramTA = document.getElementById('programTextArea');
 const objVersion = document.getElementById("version");
-const objConnect = document.getElementById('btnConnect');
-const objDownload = document.getElementById('btnDownload');
-const objSaveProgram = document.getElementById('btnSaveProgram');
-const objLoadProgram = document.getElementById('btnLoadProgram');
+const objBtnConnect = document.getElementById('btnConnect');
+const objBtnDownload = document.getElementById('btnDownload');
+const objBtnSaveProgram = document.getElementById('btnSaveProgram');
+const objBtnLoadProgram = document.getElementById('btnLoadProgram');
 const objBtnForward = document.getElementById('btnForward');
 const objBtnBackward = document.getElementById('btnBackward');
 const objBtnTurnLeft = document.getElementById('btnTurnLeft');
@@ -22,16 +22,16 @@ function startup() {
         document.getElementById("btnConnect").style.opacity = "0.4";
     }
 
-    objConnect.addEventListener('mouseup', connect, false);
-    // btnConnect.addEventListener('touchend', connect, false);
+    objBtnConnect.addEventListener('mouseup', connect, false);
+    // objBtnConnect.addEventListener('touchend', connect, false);
 
-    objDownload.addEventListener('mouseup', download, false);
-    // btnDownload.addEventListener('touchend', download, false);
-    objDownload.style.opacity = "0.4";
+    objBtnDownload.addEventListener('mouseup', download, false);
+    // objBtnDownload.addEventListener('touchend', download, false);
+    objBtnDownload.style.opacity = "0.4";
     
-    objSaveProgram.addEventListener('mouseup', saveProgram, false);
-    objLoadProgram.addEventListener('click', clearFilePath);
-    objLoadProgram.addEventListener('change', loadProgram);
+    objBtnSaveProgram.addEventListener('mouseup', saveProgram, false);
+    objBtnLoadProgram.addEventListener('click', clearFilePath);
+    objBtnLoadProgram.addEventListener('change', loadProgram);
 
     objSelectCommand.addEventListener('change', setDescription, false);
     objProgramTA.addEventListener('keydown', onKeydown, false);
@@ -222,7 +222,15 @@ function compileCommand(commandList) {
     return sendcode;
 }
 
+
 function saveProgram() {
+    alertMode = "saveProgram";
+    document.getElementById('alertTitle').innerText = "プログラムを保存します";
+    document.getElementById('alertMessage').innerText = "プログラム「" + document.getElementById('inputProgramName').value + "」を保存します。\n（…に保存されます）";
+    objDialogAlert.showModal();
+}
+
+function downloadProgram() {
     const a = document.createElement('a');
     a.href = 'data:text/plain,' + encodeURIComponent(objProgramTA.value);
     a.download = document.getElementById('inputProgramName').value;
@@ -387,23 +395,25 @@ const objBtnOK = document.getElementById('btnOK');
 const objBtnCancel = document.getElementById('btnCancel');
 
 objBtnOK.addEventListener('click', function() {
-  if (alertMode == "loadProgram") {
-    setProgram();
-  } else if (alertMode == "loadMusic") {
-    loadMusic();
-  } 
+    if (alertMode == "loadProgram") {
+        setProgram();
+    } else if (alertMode == "saveProgram") {
+        downloadProgram();
+    } else if (alertMode == "loadMusic") {
+        loadMusic();
+    } 
 
-  objDialogAlert.close();
+    objDialogAlert.close();
 });
 
 objBtnCancel.addEventListener('click', function() {
-  objDialogAlert.close();
+    objDialogAlert.close();
 });
 
 objDialogAlert.addEventListener('click', function(event) {
-  if (event.target === objDialogAlert) {
-    objDialogAlert.close('cancelled');
-  }
+    if (event.target === objDialogAlert) {
+        objDialogAlert.close('cancelled');
+    }
 });
 
 
