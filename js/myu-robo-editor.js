@@ -63,6 +63,8 @@ function startup() {
 
     makeCommandDictionary();
     // console.log(commandDictionary);
+
+    objProgramTA.value = '前進, 5\n右回り, 10\n後退, 5\n左回り, 10\n停止, 0\n電子音, 3, 135\n電子音, 3, 120\n電子音, 3, 107\n';
 }
 
 document.addEventListener("DOMContentLoaded", startup);
