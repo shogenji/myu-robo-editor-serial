@@ -46,7 +46,7 @@
     <div id="editArea">
       <div id="editAreaTitle">プログラム：</div>
       <div id="editAreaProgramName"><input type="text" id="inputProgramName" name="programName" required size="20" value="program.txt"></div>
-      <textarea id="programTextArea" rows="4" cols="40">前進, 5&NewLine;右回り, 10&NewLine;後退, 5&NewLine;左回り, 10</textarea>
+      <textarea id="programTextArea" rows="4" cols="40"></textarea>
     </div>
 
 
@@ -86,7 +86,8 @@
         <input type="number" id="inputArg2" class="argInput" name="arg2" min="0" max="255" value="0" required><br>
         <span id="arg2Description" class="argDescription">引数の説明：説明説明説明説明説明説明</span>
       </div>
-      <button id="btnSet">設定する</button>
+      <button id="btnArgCancel">キャンセル</button>
+      <button id="btnArgOK">命令を追加する</button>
     </div>
   </dialog>
 
@@ -116,6 +117,7 @@
 
     function loadMusic() {
       objProgramTA.value = "電子音, 3, 39\n電子音, 3, 41\n電子音, 10, 39\n電子音, 3, 39\n電子音, 3, 41\n電子音, 6, 39\n停止, 2\n電子音, 2, 78\n電子音, 3, 39\n電子音, 3, 41\n電子音, 6, 46\n電子音, 2, 52\n電子音, 2, 59\n電子音, 8, 52\n停止, 2\n電子音, 4, 62\n電子音, 2, 52\n電子音, 10, 46\n電子音, 4, 46\n電子音, 2, 39\n電子音, 10, 34\n電子音, 4, 39\n電子音, 2, 34\n電子音, 16, 31";
+      document.getElementById('inputProgramName').value = "music.txt";
     }
   </script>
 

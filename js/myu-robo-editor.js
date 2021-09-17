@@ -249,6 +249,8 @@ function saveProgram() {
     alertMode = "saveProgram";
     document.getElementById('alertTitle').innerText = "プログラムを保存します";
     document.getElementById('alertMessage').innerText = "プログラム「" + document.getElementById('inputProgramName').value + "」を保存します。\n（…に保存されます）";
+    document.getElementById('btnCancel').innerText = "キャンセル";
+    document.getElementById('btnOK').innerText = "保存";
     objDialogAlert.showModal();
 }
 
@@ -269,21 +271,27 @@ function clearFilePath() {
 }
 
 function loadProgram() {
-    for (file of objBtnLoadProgram.files) {
-        alertMode = "loadProgram";
-        document.getElementById('alertTitle').innerText = "プログラムを読み込みます";
-        document.getElementById('alertMessage').innerText = "プログラムを読み込みます。\n現在のプログラムは消去されます。";
-        objDialogAlert.showModal();
-    }
+    alertMode = "loadProgram";
+    document.getElementById('alertTitle').innerText = "プログラムを読み込みます";
+    document.getElementById('alertMessage').innerText = "プログラムを読み込みます。\n現在のプログラムは消去されます。";
+    document.getElementById('btnCancel').innerText = "キャンセル";
+    document.getElementById('btnOK').innerText = "読み込む";
+    objDialogAlert.showModal();
 }
-
+    
 function setProgram() {
+    let reader = new FileReader();
+
+    let file = objBtnLoadProgram.files[0];
+
     reader.readAsText(file, 'UTF-8');
     reader.onload = ()=> {
         objProgramTA.value = reader.result;
     };
+
     document.getElementById('inputProgramName').value = file.name;
 }
+    
 
 // 引数入力用ダイアログボックス
 
@@ -298,7 +306,8 @@ function setProgram() {
 let argValue = new Array(3);
 
 const objDialogArg = document.getElementById('dialogArg');
-const objBtnSet = document.getElementById('btnSet');
+const objBtnArgOK = document.getElementById('btnArgOK');
+const objBtnArgCancel = document.getElementById('btnArgCancel');
 
 objSelectCommand.addEventListener('dblclick', function() {
     if (setDialogBox()) {
@@ -308,9 +317,13 @@ objSelectCommand.addEventListener('dblclick', function() {
     }
 });
 
-objBtnSet.addEventListener('click', function() {
+objBtnArgOK.addEventListener('click', function() {
     addCommandToTextArea();
     objDialogArg.close();
+});
+
+objBtnArgCancel.addEventListener('click', function() {
+    objDialogArg.close('cancelled');
 });
 
 objDialogArg.addEventListener('click', function(event) {
