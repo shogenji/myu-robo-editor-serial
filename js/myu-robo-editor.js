@@ -263,8 +263,6 @@ function saveProgram() {
 }
 
 
-let reader = new FileReader();
-
 // 保持しているファイル名を消す
 function clearFilePath() {
     objBtnLoadProgram.value = null;
@@ -291,7 +289,7 @@ function loadProgram() {
 
     document.getElementById('inputProgramName').value = file.name;
 }
-   
+
 function onClearProgram() {
     alertMode = "clearProgram";
     document.getElementById('alertTitle').innerText = "プログラムを消去します";
