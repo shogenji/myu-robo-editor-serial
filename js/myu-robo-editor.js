@@ -291,6 +291,21 @@ function setProgram() {
 
     document.getElementById('inputProgramName').value = file.name;
 }
+   
+function onClearBtn() {
+    alertMode = "clearProgram";
+    document.getElementById('alertTitle').innerText = "プログラムを消去します";
+    document.getElementById('alertMessage').innerText = "現在のプログラムを消去します。";
+    document.getElementById('btnCancel').innerText = "キャンセル";
+    document.getElementById('btnOK').innerText = "消去";
+    objDialogAlert.showModal();
+}
+    
+function clearProgram() {
+    objProgramTA.value = "";
+
+    // document.getElementById('inputProgramName').value = file.name;
+}
     
 
 // 引数入力用ダイアログボックス
@@ -431,13 +446,23 @@ const objBtnOK = document.getElementById('btnOK');
 const objBtnCancel = document.getElementById('btnCancel');
 
 objBtnOK.addEventListener('click', function() {
-    if (alertMode == "loadProgram") {
-        setProgram();
-    } else if (alertMode == "saveProgram") {
-        downloadProgram();
-    } else if (alertMode == "loadMusic") {
-        loadMusic();
-    } 
+    switch (alertMode) {
+        case 'loadProgram':
+            setProgram();
+        case 'saveProgram':
+            downloadProgram();
+        case 'clearProgram':
+            clearProgram();
+        case 'loadMusic':
+            loadMusic();
+    }
+    // if (alertMode == "loadProgram") {
+    //     setProgram();
+    // } else if (alertMode == "saveProgram") {
+    //     downloadProgram();
+    // } else if (alertMode == "loadMusic") {
+    //     loadMusic();
+    // } 
 
     objDialogAlert.close();
 });
