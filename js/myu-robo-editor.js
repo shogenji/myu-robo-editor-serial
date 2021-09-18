@@ -28,9 +28,9 @@ function startup() {
     objBtnUpload.addEventListener('mouseup', upload, false);
     // objBtnUpload.addEventListener('touchend', upload, false);
 
-    objBtnSaveProgram.addEventListener('mouseup', saveProgram, false);
+    objBtnSaveProgram.addEventListener('mouseup', onSaveProgram, false);
     objBtnLoadProgram.addEventListener('click', clearFilePath);
-    objBtnLoadProgram.addEventListener('change', loadProgram);
+    objBtnLoadProgram.addEventListener('change', onLoadProgram);
 
     objSelectCommand.addEventListener('change', setDescription, false);
     objProgramTA.addEventListener('keydown', onKeydown, false);
@@ -245,7 +245,7 @@ function compileCommand(commandList) {
 }
 
 
-function saveProgram() {
+function onSaveProgram() {
     alertMode = "saveProgram";
     document.getElementById('alertTitle').innerText = "プログラムを保存します";
     document.getElementById('alertMessage').innerText = "プログラム「" + document.getElementById('inputProgramName').value + "」を保存します。\n（…に保存されます）";
@@ -254,7 +254,7 @@ function saveProgram() {
     objDialogAlert.showModal();
 }
 
-function downloadProgram() {
+function saveProgram() {
     const a = document.createElement('a');
     a.href = 'data:text/plain,' + encodeURIComponent(objProgramTA.value);
     a.download = document.getElementById('inputProgramName').value;
@@ -270,7 +270,7 @@ function clearFilePath() {
     objBtnLoadProgram.value = null;
 }
 
-function loadProgram() {
+function onLoadProgram() {
     alertMode = "loadProgram";
     document.getElementById('alertTitle').innerText = "プログラムを読み込みます";
     document.getElementById('alertMessage').innerText = "プログラムを読み込みます。\n現在のプログラムは消去されます。";
@@ -279,7 +279,7 @@ function loadProgram() {
     objDialogAlert.showModal();
 }
     
-function setProgram() {
+function loadProgram() {
     let reader = new FileReader();
 
     let file = objBtnLoadProgram.files[0];
@@ -292,7 +292,7 @@ function setProgram() {
     document.getElementById('inputProgramName').value = file.name;
 }
    
-function onClearBtn() {
+function onClearProgram() {
     alertMode = "clearProgram";
     document.getElementById('alertTitle').innerText = "プログラムを消去します";
     document.getElementById('alertMessage').innerText = "現在のプログラムを消去します。";
@@ -448,21 +448,14 @@ const objBtnCancel = document.getElementById('btnCancel');
 objBtnOK.addEventListener('click', function() {
     switch (alertMode) {
         case 'loadProgram':
-            setProgram();
+            loadProgram();
         case 'saveProgram':
-            downloadProgram();
+            saveProgram();
         case 'clearProgram':
             clearProgram();
         case 'loadMusic':
             loadMusic();
     }
-    // if (alertMode == "loadProgram") {
-    //     setProgram();
-    // } else if (alertMode == "saveProgram") {
-    //     downloadProgram();
-    // } else if (alertMode == "loadMusic") {
-    //     loadMusic();
-    // } 
 
     objDialogAlert.close();
 });
