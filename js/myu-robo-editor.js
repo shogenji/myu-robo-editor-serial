@@ -8,6 +8,7 @@ const objProgramTA = document.getElementById('programTextArea');
 const objVersion = document.getElementById("version");
 const objBtnConnect = document.getElementById('btnConnect');
 const objBtnUpload = document.getElementById('btnUpload');
+const objBtnClearProgram = document.getElementById('btnClearProgram');
 const objBtnSaveProgram = document.getElementById('btnSaveProgram');
 const objBtnLoadProgram = document.getElementById('btnLoadProgram');
 const objBtnForward = document.getElementById('btnForward');
@@ -28,7 +29,9 @@ function startup() {
     objBtnUpload.addEventListener('mouseup', upload, false);
     // objBtnUpload.addEventListener('touchend', upload, false);
 
+    objBtnClearProgram.addEventListener('mouseup', onClearProgram, false);
     objBtnSaveProgram.addEventListener('mouseup', onSaveProgram, false);
+
     objBtnLoadProgram.addEventListener('click', clearFilePath);
     objBtnLoadProgram.addEventListener('change', onLoadProgram);
 
@@ -447,12 +450,17 @@ objBtnOK.addEventListener('click', function() {
     switch (alertMode) {
         case 'loadProgram':
             loadProgram();
+            break;
         case 'saveProgram':
             saveProgram();
+            break;
         case 'clearProgram':
             clearProgram();
+            break;
         case 'loadMusic':
             loadMusic();
+            break;
+        default:
     }
 
     objDialogAlert.close();
