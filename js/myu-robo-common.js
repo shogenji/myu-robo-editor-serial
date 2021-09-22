@@ -39,7 +39,6 @@ async function connect() {
 
 async function handleConnectedDevice(e) {
     console.log("Device connected: " + e.device.productName);
-    isConnected = true;
 }
 
 async function handleDisconnectedDevice(e) {
