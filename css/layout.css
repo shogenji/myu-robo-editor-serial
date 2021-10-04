@@ -27,12 +27,13 @@ body {
   margin: 0px;
   padding: 10px 20px;
 
-  background-color: #00cccc;
+  color: #009999;
+
+  background-color: #ffdd88;
 
   border: none;
   border-top: 1px solid #f8f8f8;
-  border-bottom: 2px solid #ffff99;
-  box-sizing: border-box;
+  border-bottom: 2px solid #ffffff;
 }
 
 
@@ -45,23 +46,18 @@ body {
 
   font-size: 28pt;
   font-weight: bold;
-  color: #ff0099;
   
   float: left;
-
-  /* border: 1px solid #f00;
-  box-sizing: border-box; */
 }
 
 #menuArea h1 span.subtitle {
   font-size: 18pt;
   font-weight: bold;
-  color: #ff0099;
 }
 
 #menuArea a {
   text-decoration: none;
-  color: #ff0099;
+  color: #009999;
 }
 
 #menuArea p.version {
@@ -71,17 +67,11 @@ body {
   font-size: 14px;
   text-align: right;
   line-height: 140%;
-  color: #ff0099;
 
   float: left;
-
-  /* border: 1px solid #f00;
-  box-sizing: border-box; */
 }
 
 span#version {
-  /* border: 1px solid #f00;
-  box-sizing: border-box; */
 }
 
 
@@ -91,10 +81,7 @@ span#version {
   margin: 0px;
   padding: 10px;
 
-  background-color: #333333;
-
-  /* border: 0px solid #f00;
-  box-sizing: border-box; */
+  background-color: #555555;
 }
 
 
@@ -103,9 +90,6 @@ span#version {
   height: 100%;
   margin: 0px;
   padding: 10px;
-
-  /* border: 1px solid #f00;
-  box-sizing: border-box; */
 
   float: left;
 }
@@ -116,7 +100,7 @@ span#version {
   padding-left: 10px;
   margin-bottom: 10px;
 
-  color: #f8f8f8;
+  color: #ffffff;
 
   font-size: 24px;
 }
@@ -126,9 +110,6 @@ span#version {
   height: calc(80% - 30px - 20px);
   padding: 0px;
   margin-bottom: 10px;
-
-  /* border: 0px solid #00f;
-  box-sizing: border-box; */
 }
 
 #selectCommand {
@@ -136,15 +117,15 @@ span#version {
   height: 100%;
   padding: 10px;
 
-  background-color: #f8f8f8;
+  background-color: #ffffff;
 
-  color: #333333;
+  color: #555555;
   font-family: 'M PLUS Rounded 1c', sans-serif;
   font-size: 24px;
   font-weight: normal;
 
-  border: 2px solid #00cccc;
-  box-sizing: border-box;
+  border: 2px solid #009999;
+  /* box-sizing: border-box; */
   border-radius: 5px;
 }
 
@@ -153,9 +134,9 @@ span#version {
   height: 20%;
   padding: 10px;
 
-  background-color: #f8f8f8;
+  background-color: #ffffff;
 
-  color: #333333;
+  color: #555555;
   font-family: 'M PLUS Rounded 1c', sans-serif;
   font-size: 18px;
   font-weight: normal;
@@ -163,8 +144,7 @@ span#version {
   text-align: justify;
   overflow: scroll;
 
-  border: 2px solid #00cccc;
-  box-sizing: border-box;
+  border: 2px solid #009999;
   border-radius: 5px;
 }
 
@@ -173,9 +153,6 @@ span#version {
   width: 40%;
   height: 100%;
   padding: 10px;
-
-  /* border: 1px solid #f00;
-  box-sizing: border-box; */
 
   float: left;
 }
@@ -186,7 +163,7 @@ span#version {
   padding-left: 10px;
   margin-bottom: 10px;
 
-  color: #f8f8f8;
+  color: #ffffff;
 
   font-size: 24px;
 
@@ -207,15 +184,14 @@ span#version {
   margin-top: -3px;
   padding-left: 10px;
 
-  background-color: #f8f8f8;
+  background-color: #ffffff;
 
-  color: #333333;
+  color: #555555;
   font-size: 18px;
   font-family: 'M PLUS Rounded 1c', sans-serif;
   line-height: 100%;
 
-  border: 2px solid #00cccc;
-  box-sizing: border-box;
+  border: 2px solid #009999;
   border-radius: 5px;
 
   float: left;
@@ -228,9 +204,9 @@ span#version {
   margin: 0px;
   padding: 10px;
 
-  background-color: #f8f8f8;
+  background-color: #ffffff;
 
-  color: #333333;
+  color: #555555;
   font-family: 'M PLUS Rounded 1c', sans-serif;
   font-size: 24px;
   line-height: 140%;
@@ -238,8 +214,7 @@ span#version {
   
   tab-size: 8;
 
-  border: 2px solid #00cccc;
-  box-sizing: border-box;
+  border: 2px solid #009999;
   border-radius: 5px;
 }
 
@@ -248,9 +223,6 @@ span#version {
   height: 100%;
   margin: 0px;
   padding: 10px;
-
-  /* border: 1px solid #f00;
-  box-sizing: border-box; */
 
   float: left;
 }
@@ -269,16 +241,6 @@ span#version {
   height: calc(100% - 30px - 10px - 110px);
   margin: 0px;
   padding: 0px;
-
-  /* background-color: #f8f8f8; */
-
-  color: #333333;
-  font-size: 18px;
-  line-height: 140%;
-
-  /* border: 2px solid #00cccc;
-  box-sizing: border-box;
-  border-radius: 5px; */
 }
 
 #remote-controller {
@@ -287,14 +249,4 @@ span#version {
   height: 110px;
   margin: 0px;
   padding: 0px;
-
-  /* background-color: #f8f8f8; */
-
-  color: #333333;
-  font-size: 18px;
-  line-height: 140%;
-
-  /* border: 2px solid #00cccc;
-  box-sizing: border-box;
-  border-radius: 5px; */
 }

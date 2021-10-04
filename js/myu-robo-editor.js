@@ -1,6 +1,7 @@
 let alertMode = "loadMusic";
 let dirtyFlag = false;
 let isWebHIDSupported = true;
+let isWebSerialSupported = true;
 
 const objSelectCommand = document.getElementById('selectCommand');
 const objCommandDescription = document.getElementById('commandDescription');
@@ -21,6 +22,10 @@ function startup() {
     if (!("hid" in navigator)) {
         isWebHIDSupported = false;
         document.getElementById("deviceStatus").innerText = "WebHIDに未対応です。";
+    }
+    if (!("serial" in navigator)) {
+        isWebSerialSupported = false;
+        document.getElementById("deviceStatus").innerText = "WebSerialに未対応です。";
     }
 
     objBtnConnect.addEventListener('mouseup', connect, false);
@@ -73,7 +78,7 @@ function startup() {
 document.addEventListener("DOMContentLoaded", startup);
 
 function setButtonStyle() {
-    if (!isWebHIDSupported) {
+    if (!isWebHIDSupported && !isWebSerialSupported) {
         objBtnConnect.style.opacity = "0.4";
     }
 
@@ -147,46 +152,89 @@ async function upload() {
     // let sendcode = compileCommand(commandList);
 
     const waitFor = duration => new Promise(r => setTimeout(r, duration));
-    
-    console.log(device.productName);
-    console.log(device.collections);
+    const wait = 100;
 
-    const reportId = 0x00;
-    const dataS = Uint8Array.from([  1,  16, ...Array(62).fill(255)]);
-    const dataE = Uint8Array.from([  1,  19, ...Array(62).fill(255)]);
+    await sendrs232c(16);
+    await waitFor(wait);
+    await sendrs232c(0);
+    await waitFor(wait);
     
-    await device.sendReport(reportId, new Uint8Array(dataS));
-
     for (let i = 0; i < commandList.length; i++) {
         if (commandList[i].length == 0) continue;
 
         let command = commandList[i].split(',');
-        let data = Array(64).fill(255, 0);
-        data[1] = 16;
-        
+
         if (command[0] in commandDictionary) {
-            data[0] = commandDictionary[command[0]][1] + 1;
-
-            switch (commandDictionary[command[0]][1]) {
-                case 3:
-                data[4] = parseInt(command[2], 10);
-                case 2:
-                data[3] = parseInt(command[1], 10);
-                case 1:
-                data[2] = commandDictionary[command[0]][0];
+            await sendrs232c(commandDictionary[command[0]][0]);
+            await waitFor(wait);
+            if (commandDictionary[command[0]][1] >= 2) {
+                    await sendrs232c(parseInt(command[1], 10));
+                    await waitFor(wait);
+                }
+            if (commandDictionary[command[0]][1] >= 3) {
+                await sendrs232c(parseInt(command[2], 10));
+                await waitFor(wait);
             }
-
         } else {
             console.log(i, 'Command not found!');
         }
-
-        // console.log(data);
-        await device.sendReport(reportId, new Uint8Array(data));
-        // waitFor(100);
     }
 
-    await device.sendReport(reportId, new Uint8Array(dataE));
+    await sendrs232c(19);
+    await waitFor(wait);
+    await sendrs232c(0);
+    await waitFor(wait);
 }
+
+// async function upload() {
+//     if (isConnected == false) {
+//         return;
+//     }
+    
+//     let commandList = parseCommand();
+//     // let sendcode = compileCommand(commandList);
+
+//     const waitFor = duration => new Promise(r => setTimeout(r, duration));
+    
+//     console.log(device.productName);
+//     console.log(device.collections);
+
+//     const reportId = 0x00;
+//     const dataS = Uint8Array.from([  1,  16, ...Array(62).fill(255)]);
+//     const dataE = Uint8Array.from([  1,  19, ...Array(62).fill(255)]);
+    
+//     await device.sendReport(reportId, new Uint8Array(dataS));
+
+//     for (let i = 0; i < commandList.length; i++) {
+//         if (commandList[i].length == 0) continue;
+
+//         let command = commandList[i].split(',');
+//         let data = Array(64).fill(255, 0);
+//         data[1] = 16;
+        
+//         if (command[0] in commandDictionary) {
+//             data[0] = commandDictionary[command[0]][1] + 1;
+
+//             switch (commandDictionary[command[0]][1]) {
+//                 case 3:
+//                 data[4] = parseInt(command[2], 10);
+//                 case 2:
+//                 data[3] = parseInt(command[1], 10);
+//                 case 1:
+//                 data[2] = commandDictionary[command[0]][0];
+//             }
+
+//         } else {
+//             console.log(i, 'Command not found!');
+//         }
+
+//         // console.log(data);
+//         await device.sendReport(reportId, new Uint8Array(data));
+//         // waitFor(100);
+//     }
+
+//     await device.sendReport(reportId, new Uint8Array(dataE));
+// }
 
 let commandDictionary = {};
 // '命令':[0命令コード, 1命令サイズ（byte）, 2'命令の説明', 3'引数1名称', 4'引数1説明', 5引数1最小値, 6引数1最大値, 7'引数2名称', 8'引数2説明', 9引数2最小値, 10引数2最大値]

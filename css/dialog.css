@@ -13,18 +13,17 @@ dialog {
   padding: 10px;
   position: relative;
 
-  background-color: #f8f8f8;
+  background-color: #ffffff;
   text-align: center;
 
-  color: #333333;
+  color: #555555;
   font-family: 'M PLUS Rounded 1c', sans-serif;
   font-size: 18px;
   font-weight: normal;
     
-  border: 2px solid #00cccc;
-  box-sizing: border-box;
+  border: 2px solid #009999;
   border-radius: 10px;
-  box-shadow: 1px 1px 2px #333333;
+  box-shadow: 1px 1px 2px #555555;
 }
         
 dialog[open] {
@@ -41,9 +40,6 @@ dialog::backdrop {
   padding: 0px;
 
   display: block;
-
-  /* border: 1px solid #f00;
-  box-sizing: border-box; */
 }
 
 .dialog-content button {
@@ -100,7 +96,7 @@ dialog h2 {
 }
 
 .argDescription {
-  color: #888888;
+  color: #bbbbbb;
 }
 
 input.argInput {
@@ -111,7 +107,7 @@ input.argInput {
 
   background: #ffffff;
 
-  color: #333333;
+  color: #555555;
   font-family: 'M PLUS Rounded 1c', sans-serif;
   font-size: 12pt;
   font-weight: normal;
@@ -120,7 +116,7 @@ input.argInput {
   white-space: nowrap;
   vertical-align: middle;
 
-  border: 1px solid #333333;
+  border: 1px solid #555555;
   border-radius: 5px;
 }
 
