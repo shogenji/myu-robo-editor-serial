@@ -27,7 +27,8 @@ async function connect() {
 
     let requestParams = { filters: serialFilters };
     try {
-        port = await navigator.serial.requestPort(requestParams);
+        port = await navigator.serial.requestPort();
+        // port = await navigator.serial.requestPort(requestParams);
         if (!port) {
           return;
         }
@@ -91,7 +92,7 @@ async function handleConnectedDevice(e) {
 }
 
 async function handleDisconnectedDevice(e) {
-    console.log("Device disconnected: " + e.device.productName);
+    // console.log("Device disconnected: " + e.device.productName);
     console.log("Serial port disconnected");
 
     isConnected = false;
