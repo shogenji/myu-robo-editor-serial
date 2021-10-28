@@ -27,13 +27,11 @@ body {
   margin: 0px;
   padding: 10px 20px;
 
-  color: #009999;
-
-  background-color: #ffdd88;
+  background-color: #0099ff;
 
   border: none;
   border-top: 1px solid #f8f8f8;
-  border-bottom: 2px solid #ffffff;
+  border-bottom: 2px solid #0099ff;
 }
 
 
@@ -46,18 +44,22 @@ body {
 
   font-size: 28pt;
   font-weight: bold;
+  color: #f8f8f8;
   
   float: left;
 }
 
 #menuArea h1 span.subtitle {
-  font-size: 18pt;
+  margin-left: 5px;
+
+  font-size: 10pt;
   font-weight: bold;
+  color: #f8f8f8;
 }
 
 #menuArea a {
   text-decoration: none;
-  color: #009999;
+  color: #f8f8f8;
 }
 
 #menuArea p.version {
@@ -67,6 +69,7 @@ body {
   font-size: 14px;
   text-align: right;
   line-height: 140%;
+  color: #f8f8f8;
 
   float: left;
 }
@@ -81,7 +84,7 @@ span#version {
   margin: 0px;
   padding: 10px;
 
-  background-color: #555555;
+  background-color: #f8f8f8;
 }
 
 
@@ -100,7 +103,7 @@ span#version {
   padding-left: 10px;
   margin-bottom: 10px;
 
-  color: #ffffff;
+  color: #333333;
 
   font-size: 24px;
 }
@@ -117,15 +120,14 @@ span#version {
   height: 100%;
   padding: 10px;
 
-  background-color: #ffffff;
+  background-color: #f8f8f8;
 
-  color: #555555;
+  color: #333333;
   font-family: 'M PLUS Rounded 1c', sans-serif;
   font-size: 24px;
   font-weight: normal;
 
-  border: 2px solid #009999;
-  /* box-sizing: border-box; */
+  border: 2px solid #0099ff;
   border-radius: 5px;
 }
 
@@ -134,9 +136,9 @@ span#version {
   height: 20%;
   padding: 10px;
 
-  background-color: #ffffff;
+  background-color: #f8f8f8;
 
-  color: #555555;
+  color: #333333;
   font-family: 'M PLUS Rounded 1c', sans-serif;
   font-size: 18px;
   font-weight: normal;
@@ -144,7 +146,7 @@ span#version {
   text-align: justify;
   overflow: scroll;
 
-  border: 2px solid #009999;
+  border: 2px solid #0099ff;
   border-radius: 5px;
 }
 
@@ -163,7 +165,7 @@ span#version {
   padding-left: 10px;
   margin-bottom: 10px;
 
-  color: #ffffff;
+  color: #333333;
 
   font-size: 24px;
 
@@ -184,14 +186,14 @@ span#version {
   margin-top: -3px;
   padding-left: 10px;
 
-  background-color: #ffffff;
+  background-color: #f3f3f3;
 
-  color: #555555;
+  color: #333333;
   font-size: 18px;
   font-family: 'M PLUS Rounded 1c', sans-serif;
   line-height: 100%;
 
-  border: 2px solid #009999;
+  border: 2px solid #0099ff;
   border-radius: 5px;
 
   float: left;
@@ -204,9 +206,9 @@ span#version {
   margin: 0px;
   padding: 10px;
 
-  background-color: #ffffff;
+  background-color: #f8f8f8;
 
-  color: #555555;
+  color: #333333;
   font-family: 'M PLUS Rounded 1c', sans-serif;
   font-size: 24px;
   line-height: 140%;
@@ -214,7 +216,7 @@ span#version {
   
   tab-size: 8;
 
-  border: 2px solid #009999;
+  border: 2px solid #0099ff;
   border-radius: 5px;
 }
 
